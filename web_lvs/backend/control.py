@@ -129,10 +129,38 @@ class HomeHandler(BaseHandler):
 		if current_user:
 			self.redirect('/charts/')
 		else:
-			https_url = options.https_url
+			login_url = options.login_url
 			lvs_url = options.lvs_url
-			ret = "%slogin?forward=%slogin" % (https_url, lvs_url)
+			ret = "%slogin?forward=%slogin" % (login_url, lvs_url)
 			self.redirect(ret)
+
+####user logout
+class LoginOut(BaseHandler):
+	def get(self):
+		login_url = options.login_url
+		lvs_url = options.lvs_url	
+		ret = "%slogout?forward=%s" % (login_url, lvs_url)
+		self.redirect(ret)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ####saltstackwork
 class saltstackwork():
