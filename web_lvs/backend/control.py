@@ -71,6 +71,68 @@ class TemplateRendering():
 		
 		return content
 
+####basehendler rendering overwrite
+class BaseHandler(tornado.web.RequestHandler, TemplateRendering):
+	####render2 method
+	def render2(self, template_name, **kwargs):
+
+		kwargs.update({
+			'settings': self.settings,
+			'STATIC_URL': self.settings.get('static_url_prefix', '/static/'),
+			'request': self.request,
+
+			'xsrf_token': self.xsrf_token,
+			'xsrf_form_html': self.xsrf_form_html,
+
+			'current_user':self.get_current_user(),
+			
+		})
+
+		content = self.render_template(template_name, **kwargs)
+		self.write(content)
+
+	def template(self, template_name, **kwargs):
+		
+		kwargs.update({
+			'settings': self.settings,
+			'STATIC_URL': self.settings.get('static_url_prefix', '/static/'),
+
+			'request': self.request,
+
+			'xsrf_token': self.xsrf_token,
+			'xsrf_form_html': self.xsrf_form_html,
+		})
+		
+		content = self.render_template(template_name, **kwargs)
+		return content
+
+	####overwrite tornado.web.RequestHandler get user method
+	def get_current_user(self):
+		
+		user_id = self.get_secure_cookie("user")
+		if not user_id:
+			return None
+
+		return user_id
+
+	def get_context(self):
+
+		self.context = {'current_user': self.get_current_user()}
+		return self.context
+
+####home
+class HomeHandler(BaseHandler):
+	def get(self):
+		
+####index
+		current_user = self.get_current_user()
+		if current_user:
+			self.redirect('/charts/')
+		else:
+			https_url = options.https_url
+			lvs_url = options.lvs_url
+			ret = "%slogin?forward=%slogin" % (https_url, lvs_url)
+			self.redirect(ret)
 
 ####saltstackwork
 class saltstackwork():
