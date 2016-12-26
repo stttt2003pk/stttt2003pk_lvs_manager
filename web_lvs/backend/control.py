@@ -131,6 +131,7 @@ class HomeHandler(BaseHandler):
 		else:
 			login_url = options.login_url
 			lvs_url = options.lvs_url
+####redirect uri
 			ret = "%slogin?forward=%slogin" % (login_url, lvs_url)
 			self.redirect(ret)
 
@@ -139,6 +140,7 @@ class LoginOut(BaseHandler):
 	def get(self):
 		login_url = options.login_url
 		lvs_url = options.lvs_url	
+####redirect uri
 		ret = "%slogout?forward=%s" % (login_url, lvs_url)
 		self.redirect(ret)
 
