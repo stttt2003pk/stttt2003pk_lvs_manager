@@ -25,6 +25,11 @@ class Model():
 #		self.config = yaml.load(open(options.config))
 #		self.agentlist = config['agent']
 
-	def __getAccountOne__(self,user):
-		result = result = self.db['LvsAccount'].find_one({"username":user})
+	def getAccountOne(self,user):
+		result = self.db['LvsAccount'].find_one({"username":user})
 		return result
+
+	def getAccountPass(self, passwd):
+		result = self.db['LvsAccount'].find_one({"passwd":passwd})
+		return result
+

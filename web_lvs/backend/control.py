@@ -43,8 +43,8 @@ def format_rs_str(rs):
 	return _rs[0]
 
 ####timestamp UTC to human
-def timestamptodate(timestamp):
-	return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
+#def timestamptodate(timestamp):
+#	return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
 
 ####for rendering templates
 class TemplateRendering():
@@ -123,29 +123,48 @@ class BaseHandler(tornado.web.RequestHandler, TemplateRendering):
 ####home
 class HomeHandler(BaseHandler):
 	def get(self):
-		
-####index
+'''		
+index
+'''
 		current_user = self.get_current_user()
 		if current_user:
 			self.redirect('/charts/')
 		else:
-			login_url = options.login_url
 			lvs_url = options.lvs_url
-####redirect uri
-			ret = "%slogin?forward=%slogin" % (login_url, lvs_url)
+'''
+redirect uri
+'''
+			ret = "%slogin" %lvs_url
 			self.redirect(ret)
 
-####user logout
-class LoginOut(BaseHandler):
+###user logout
+class Loginout(BaseHandler):
 	def get(self):
-		login_url = options.login_url
 		lvs_url = options.lvs_url	
-####redirect uri
-		ret = "%slogout?forward=%s" % (login_url, lvs_url)
+		ret = "%slogout?forward=%s" % (lvs_url, lvs_url)
 		self.redirect(ret)
 
+####login_auth
+class LoginAuth(BaseHandler):
+	def get(self):
 
+		handler = Model('Account')
 
+		login_name_auth = self.get_argument("username", None)
+		login_pass_auth = self.get_argument("password", None)
+
+		login_name_true = handler.getAccountOne(login_name_auth)
+		login_pass_auth = handler.getAccountPass(login_pass_auth):
+
+		if login_name_auth == login_name_true and login_pass_auth == login_pass_auth:
+			self.redirect('/charts/')
+		else:
+			raise tornado.web.HTTPError(500, 'authenticated failed,please contact administrator')
+			
+####login_html
+class Login(BaseHandler):
+	def get(self):
+		self.render2('login.html')
 
 
 
