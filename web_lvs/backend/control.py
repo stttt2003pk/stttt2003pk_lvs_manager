@@ -7,6 +7,7 @@ import tornado.auth
 import tornado.httpserver
 import tornado.ioloop
 import tornado.options
+from tornado.options import options
 import tornado.web
 
 import pymongo
@@ -43,16 +44,28 @@ def format_rs_str(rs):
 	return _rs[0]
 
 ####timestamp UTC to human
-#def timestamptodate(timestamp):
-#	return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
+def timestamptodate(timestamp):
+	return datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
 
+cur_dir = os.path.dirname(os.path.abspath(__file__))
 ####for rendering templates
 class TemplateRendering():
+	def __init__(self):
+	#	self.settings = dict(
+    #        template_path = os.path.join(cur_dir,'templates/'),
+    #        static_path = os.path.join(cur_dir,'lib/'),
+    #        cookie_secret = "SunRunVas38288446TestStttt2003pk",
+    #        login_url = "/",
+    #    )
+		pass
+
 	def render_template(self, template_name, **kwargs):
 		template_dirs = []
 
+		#print self.settings.get('template_path', '666666666')
 		if self.settings.get('template_path', ''):
 			template_dirs.append(self.settings["template_path"])
+			#print template_dirs
 
 		####jinja2 env setting,setthen test and fileter
 		env = Environment(loader=FileSystemLoader(template_dirs))
@@ -123,17 +136,17 @@ class BaseHandler(tornado.web.RequestHandler, TemplateRendering):
 ####home
 class HomeHandler(BaseHandler):
 	def get(self):
-'''		
-index
-'''
+		'''		
+		index
+		'''
 		current_user = self.get_current_user()
 		if current_user:
 			self.redirect('/charts/')
 		else:
 			lvs_url = options.lvs_url
-'''
-redirect uri
-'''
+			'''
+			redirect uri
+			'''
 			ret = "%slogin" %lvs_url
 			self.redirect(ret)
 
@@ -154,7 +167,7 @@ class LoginAuth(BaseHandler):
 		login_pass_auth = self.get_argument("password", None)
 
 		login_name_true = handler.getAccountOne(login_name_auth)
-		login_pass_auth = handler.getAccountPass(login_pass_auth):
+		login_pass_auth = handler.getAccountPass(login_pass_auth)
 
 		if login_name_auth == login_name_true and login_pass_auth == login_pass_auth:
 			self.redirect('/charts/')

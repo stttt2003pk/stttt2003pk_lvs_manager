@@ -11,8 +11,10 @@ from setting import *
 import control
 
 cur_dir = os.path.dirname(os.path.abspath(__file__))
+#print os.path.join(cur_dir,'templates/')
 
 class Application(tornado.web.Application):
+
 	def __init__(self):
 		web_path = [
 			(r"/", control.HomeHandler),	
@@ -23,11 +25,12 @@ class Application(tornado.web.Application):
 		handlers = web_path
 
 		settings = dict(
-			template_path=os.path.join(cur_dir,'templates/'),
-			static_path=os.path.join(cur_dir,'lib/'),
-			cookie_secret="SunRunVas38288446TestStttt2003pk",
-			login_url="/",
+			template_path = os.path.join(cur_dir,'templates/'),
+			static_path = os.path.join(cur_dir,'lib/'),
+			cookie_secret = "SunRunVas38288446TestStttt2003pk",
+			login_url = "/",
 		)
+
 		tornado.web.Application.__init__(self, handlers,**settings)
 
 def main():
