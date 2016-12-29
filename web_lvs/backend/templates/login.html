@@ -13,20 +13,20 @@
     <title>Signin Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ STATIC_URL }}ui/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}ui/boostrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ STATIC_URL }}ui/css/signin.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}ui/boostrap/css/signin.css" rel="stylesheet">
   </head>
 
   <body>
 
     <div class="container">
 
-      <form class="form-signin">
+      <form class="form-signin" onSubmit="return false;">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputUsername" class="sr-only">Username</label>
-        <input type="email" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+        <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
@@ -34,7 +34,7 @@
             <input type="checkbox" value="remember-me"> Remember me
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		<button id="auth_submit" class="btn btn-lg btn-primary btn-block" type="text">Sign in</button>
       </form>
 
     </div> <!-- /container -->
@@ -44,7 +44,42 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{{ STATIC_URL }}ui/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- <script src="{{ STATIC_URL }}ui/js/ie10-viewport-bug-workaround.js"></script> -->
+    <script src="{{ STATIC_URL }}ui/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$("#auth_submit").click(function(){
+				var username = $("#inputUsername").val() ;
+				var password = $("#inputPassword").val() ;
+				//console.log(username, password) ;
+				var post_data = {
+									'user' : username,
+									'passwd' : password,
+								} ;
+				//var _post_data = JSON.toString(post_data) ;
+				var _post_data = post_data ;
+				//console.log(_post_data)	
+
+				$.ajax({
+					type: 'POST' ,
+					url: '/login_auth' ,
+					data: _post_data ,
+					//dataType: 'json' ,
+					cache: false ,
+					success: function(data){
+						console.log(data)
+					},
+					error: function(XMLHttpRequest, rc, error){
+						console.log('auth failed\n' + XMLHttpRequest + '\n' + rc + '\n' + error)
+					},
+				})
+
+				
+			})
+		})
+		
+		
+	</script>
   </body>
 </html>
 

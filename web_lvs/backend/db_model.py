@@ -33,7 +33,7 @@ class DB_Model():
 
 
 ####test DB_Model
-handler = DB_Model('test account')
-print handler.getAccountOne('admin')
+#handler = DB_Model('test account')
+#print handler.getAccountOne('admin')
 
 

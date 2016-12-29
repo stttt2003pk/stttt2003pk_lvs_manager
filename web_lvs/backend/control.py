@@ -9,6 +9,7 @@ import tornado.ioloop
 import tornado.options
 from tornado.options import options
 import tornado.web
+import tornado.escape
 
 import pymongo
 from pymongo import Connection
@@ -17,6 +18,8 @@ from db_model import DB_Model
 from bytesformat import bytes2human
 
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
+
+import json
 
 ####real server alived html
 def rs_is_lived(weight):
@@ -159,29 +162,40 @@ class Loginout(BaseHandler):
 
 ####login_auth
 class LoginAuth(BaseHandler):
-	def get(self):
-
+	def post(self):
+		login_name_true = None
+		login_pass_true = None
+		####from ajax
+		#get_data = self.request.body
+		#get_data = tornado.escape.json_decode(self.request.body)
+		#login_name_auth = get_data.get("user", None)
+		#login_pass_auth = get_data.get("passwd", None)
+		login_name_auth = self.get_argument("user")
+		login_pass_auth = self.get_argument("passwd")
+		####from db
 		handler = DB_Model('Account')
-
-		login_name_auth = self.get_argument("user", None)
-		login_pass_auth = self.get_argument("passwd", None)
-
 		result  = handler.getAccountOne(login_name_auth)
 
-		login_name_true = result.get("user", None)
-		login_pass_true = result.get("passwd", None) 
+		if result:
+			login_name_true = result.get("user", False)
+			login_pass_true = result.get("passwd", False) 
 
-		if login_name_auth == login_name_true and login_pass_auth == login_pass_true:
-			self.redirect('/charts/')
+			if login_name_auth == login_name_true and login_pass_auth == login_pass_true:
+				self.write('ok')
+			else:
+				self.write('username or password not match')
 		else:
-			raise tornado.web.HTTPError(500, 'authenticated failed,please contact administrator')
-			
+			self.write('no user in the mongo')
+
 ####login_html
 class Login(BaseHandler):
 	def get(self):
 		self.render2('login.html')
 
-
+####charts
+class ChartsHandler(BaseHandler):
+	def get(self):
+		self.render2('charts.html')
 
 
 

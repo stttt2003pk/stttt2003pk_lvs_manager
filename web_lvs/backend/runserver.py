@@ -20,6 +20,7 @@ class Application(tornado.web.Application):
 			(r"/", control.HomeHandler),	
 			(r"/login", control.Login),
 			(r"/login_auth", control.LoginAuth),
+			(r"/charts/", control.ChartsHandler),
 		]
 
 		handlers = web_path
