@@ -11,9 +11,9 @@ port = int(8888)
 #lvs_url = 'http://lvs.stttt2003pk.com/'
 
 define("port", default=port, help="the servers run the default port", type=int)
-define("mongodb", default="localhost", help="mongodb host")
+define("mongodb", default="192.168.100.167", help="mongodb host")
 define("mongodb_port", default=27017, help="mongodb port")
-define("db", default="LvsMonitor", help="default Lvs Monitor Db Name")
+define("db", default="Lvs_stttt2003pk_manager", help="default lvs Db Name")
 
 ###url+port
 lvs_url_port = 'http://' + domain_name + ':' + str(port) + '/'

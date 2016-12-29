@@ -9,6 +9,8 @@ from pymongo import Connection
 
 from setting import *
 
+import json
+
 class mongo_conn():
 	def __init__(self):
 		self.conn = Connection(options.mongodb,options.mongodb_port)
@@ -16,7 +18,7 @@ class mongo_conn():
 		return self.conn[options.db]
 
 ####which method call which function
-class Model():
+class DB_Model():
 	def __init__(self, method):
 		self.method = method
 #		self.id = id
@@ -26,10 +28,12 @@ class Model():
 #		self.agentlist = config['agent']
 
 	def getAccountOne(self,user):
-		result = self.db['LvsAccount'].find_one({"username":user})
+		result = self.db['LvsAccount'].find_one({"user":user})
 		return result
 
-	def getAccountPass(self, passwd):
-		result = self.db['LvsAccount'].find_one({"passwd":passwd})
-		return result
+
+####test DB_Model
+handler = DB_Model('test account')
+print handler.getAccountOne('admin')
+
 

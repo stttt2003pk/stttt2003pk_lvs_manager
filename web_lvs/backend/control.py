@@ -13,7 +13,7 @@ import tornado.web
 import pymongo
 from pymongo import Connection
 
-from model import Model
+from db_model import DB_Model
 from bytesformat import bytes2human
 
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
@@ -161,15 +161,17 @@ class Loginout(BaseHandler):
 class LoginAuth(BaseHandler):
 	def get(self):
 
-		handler = Model('Account')
+		handler = DB_Model('Account')
 
-		login_name_auth = self.get_argument("username", None)
-		login_pass_auth = self.get_argument("password", None)
+		login_name_auth = self.get_argument("user", None)
+		login_pass_auth = self.get_argument("passwd", None)
 
-		login_name_true = handler.getAccountOne(login_name_auth)
-		login_pass_auth = handler.getAccountPass(login_pass_auth)
+		result  = handler.getAccountOne(login_name_auth)
 
-		if login_name_auth == login_name_true and login_pass_auth == login_pass_auth:
+		login_name_true = result.get("user", None)
+		login_pass_true = result.get("passwd", None) 
+
+		if login_name_auth == login_name_true and login_pass_auth == login_pass_true:
 			self.redirect('/charts/')
 		else:
 			raise tornado.web.HTTPError(500, 'authenticated failed,please contact administrator')
