@@ -51,13 +51,14 @@
 			$("#auth_submit").click(function(){
 				var username = $("#inputUsername").val() ;
 				var password = $("#inputPassword").val() ;
-				//console.log(username, password) ;
+
 				var post_data = {
 									'user' : username,
 									'passwd' : password,
 								} ;
-				//var _post_data = JSON.toString(post_data) ;
-				var _post_data = post_data ;
+
+				var _post_data = JSON.stringify(post_data) ;
+
 				//console.log(_post_data)	
 
 				$.ajax({

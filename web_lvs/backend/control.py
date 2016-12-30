@@ -9,7 +9,7 @@ import tornado.ioloop
 import tornado.options
 from tornado.options import options
 import tornado.web
-import tornado.escape
+from tornado.escape import json_decode
 
 import pymongo
 from pymongo import Connection
@@ -20,6 +20,10 @@ from bytesformat import bytes2human
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
 import json
+import urllib
+
+import time
+import datetime
 
 ####real server alived html
 def rs_is_lived(weight):
@@ -166,12 +170,12 @@ class LoginAuth(BaseHandler):
 		login_name_true = None
 		login_pass_true = None
 		####from ajax
-		#get_data = self.request.body
-		#get_data = tornado.escape.json_decode(self.request.body)
-		#login_name_auth = get_data.get("user", None)
-		#login_pass_auth = get_data.get("passwd", None)
-		login_name_auth = self.get_argument("user")
-		login_pass_auth = self.get_argument("passwd")
+
+		post_data = json_decode(self.request.body)
+
+		login_name_auth = post_data.get('user', True)
+		login_pass_auth = post_data.get('passwd', True)
+		
 		####from db
 		handler = DB_Model('Account')
 		result  = handler.getAccountOne(login_name_auth)
@@ -182,10 +186,14 @@ class LoginAuth(BaseHandler):
 
 			if login_name_auth == login_name_true and login_pass_auth == login_pass_true:
 				self.write('ok')
+				time_now = timestamptodate(time.time())
+				if login_name_true != 'admin':
+					user_data = {"username":login_name_true, "is_manager":False, "is_super_manager":False, "login_time":time_now}
+					self.set_secure_cookie("user", login_name_true, expires_days=options.cookies_expires)
 			else:
 				self.write('username or password not match')
 		else:
-			self.write('no user in the mongo')
+			self.write('username or password not match')
 
 ####login_html
 class Login(BaseHandler):
