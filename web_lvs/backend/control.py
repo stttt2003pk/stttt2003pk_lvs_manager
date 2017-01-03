@@ -39,9 +39,9 @@ def rs_is_lived(weight):
 
 ####manager admin acount
 def user_is_manager(user):
-	handler = Model('LvsAccount')
+	handler = DB_Model('LvsAccount')
 	user_info = handler.getAccountOne(user)
-	if user_info['is_manager'] or user_info['is_super_manager']:
+	if user_info['is_manager'] or user_info['super_manager']:
 		return True
 	else:
 		return False
@@ -232,24 +232,23 @@ def search_cluster(id):
 
 ####cluster list
 class LvsManager(BaseHandler):
-	@tornado.web.authenticated
+    @tornado.web.authenticated
+    def get(self):
 
-	def get(self):
-
-		cluster_list = []
+        cluster_list = []
 
         config = yaml.load(open(options.config))
 
         current_user = self.get_current_user()
         handler = DB_Model('account')
         result = handler.getAccountOne(current_user)
-		
+
         if result["super_manager"]:
             cluster_list = config['cluster']
         elif result["is_manager"]:
             for name in config['cluster']:
-                if login_name_auth in name['manager_user']:
-                    cluster_list.append[name]
+                if current_user in name['manager_user']:
+                    cluster_list.append(name)
         else:
             pass
 
@@ -257,12 +256,17 @@ class LvsManager(BaseHandler):
             lb_list = []
             for lb in cluster['agent']:
                 lb_info = search_agent(lb)
-                lb_list.append({"id":lb_info['id'],"ipadd":lb_info['ipadd']})
+                lb_list.append({
+                                "id":lb_info['id'],
+                                "ipadd":lb_info['ipadd'],
+                                "port":lb_info['port'],
+                                
+                                })
             cluster['lb'] = lb_list
 
-        self.render2('lvsmanager.html',cluster_list=cluster_list)	
-			
-		
+        self.render2('lvsmanager.html',cluster_list=cluster_list)
+        #self.write(cluster_list[0])
+
 
 
 

@@ -2,21 +2,33 @@
 ---
 
 agent:
-  -  id: stttt2003pk_lvs_cluster01
+  -  id: lvs_server_01
      ipadd: 192.168.204.117
-     cluster: stttt2003pk_lvs_cluster
+     cluster: stttt2003pk_lvs_cluster_zone1
      area: SZ
      port: 61777
 
-  -  id: stttt2003pk_lvs_cluster02
+  -  id: lvs_server_02
      ipadd: 192.168.204.118
-     cluster: stttt2003pk_lvs_cluster
+     cluster: stttt2003pk_lvs_cluster_zone2
      area: SZ
+     port: 61777
+
+  -  id: lvs_server_03
+     ipadd: 192.168.204.119
+     cluster: stttt2003pk_lvs_cluster_zone2
+     area: SH
      port: 61777
 
 cluster:
-  -  id: stttt2003pk_lvs_cluster
+  -  id: stttt2003pk_lvs_cluster_zone1
      area: 深圳
      descript: 深圳集群
-     agent: ['stttt2003pk_lvs_cluster01', 'stttt2003pk_lvs_cluster02']
+     agent: ['lvs_server_01', 'lvs_server_02']
+     manager_user: ['test']
+
+  -  id: stttt2003pk_lvs_cluster_zone2
+     area: 上海 
+     descript: 上海集群
+     agent: ['lvs_server_03']
      manager_user: ['test']
