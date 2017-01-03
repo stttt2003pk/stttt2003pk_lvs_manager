@@ -25,6 +25,8 @@ import urllib
 import time
 import datetime
 
+import logging 
+
 ####real server alived html
 def rs_is_lived(weight):
 	if int(weight) == 0:
@@ -167,6 +169,7 @@ class Loginout(BaseHandler):
 ####login_auth
 class LoginAuth(BaseHandler):
 	def post(self):
+
 		login_name_true = None
 		login_pass_true = None
 		####from ajax
@@ -205,6 +208,7 @@ class ChartsHandler(BaseHandler):
 	def get(self):
 		self.render2('charts.html')
 
+####
 
 
 
