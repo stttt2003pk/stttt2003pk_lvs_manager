@@ -69,6 +69,15 @@
 					cache: false ,
 					success: function(data){
 						console.log(data)
+
+						if(data == 'ok'){
+							window.location.href="/charts/";
+						}
+						else
+						{
+							alert(data);
+						}
+
 					},
 					error: function(XMLHttpRequest, rc, error){
 						console.log('auth failed\n' + XMLHttpRequest + '\n' + rc + '\n' + error)

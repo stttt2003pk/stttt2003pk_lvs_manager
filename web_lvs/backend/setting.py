@@ -10,6 +10,8 @@ domain_name = 'lvs.stttt2003pk.com'
 port = int(8888)
 #lvs_url = 'http://lvs.stttt2003pk.com/'
 
+define("debug",default=True,help="Debug Mode",type=bool)
+
 define("port", default=port, help="the servers run the default port", type=int)
 define("mongodb", default="127.0.0.1", help="mongodb host")
 define("mongodb_port", default=27017, help="mongodb port")
