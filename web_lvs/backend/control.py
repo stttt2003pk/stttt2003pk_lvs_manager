@@ -27,6 +27,7 @@ import datetime
 
 import logging 
 
+####
 ####real server alived html
 def rs_is_lived(weight):
 	if int(weight) == 0:
