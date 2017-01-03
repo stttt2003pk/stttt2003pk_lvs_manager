@@ -114,7 +114,7 @@
             </div>
         </form>
         </br>
-        <h4>RealServer group</h4>
+        <h4>tor_method"RealServer group</h4>
         <hr>
         <button id="rs_add"><span></span>add real server</button>
         <table>
@@ -128,7 +128,7 @@
                   <th>ops</th>
                 </tr>
               </thead>
-              <tbody id='rs_talbe_body'>
+              <tbody id='rs_table_body'>
               </tbody>
         </table>
         <hr>
@@ -180,31 +180,31 @@
         <div>
           <label for="path">path</label>
           <div>
-            <td><input id="path" type="text" name='path'></td>
+            <td><input class="monitor_method_input" id="path" type="text" name='path'></td>
           </div>
         </div>
         <div>
           <label for="digest">digest</label>
           <div>
-            <td><input id="digest" type="text" name='digest'></td>
+            <td><input class="monitor_method_input" id="digest" type="text" name='digest'></td>
           </div>
         </div>
         <div>
           <label for="connect_timeout">connection_timeout</label>
           <div>
-            <td><input id="connect_timeout" type="text" name='connect_timeout'></td>
+            <td><input class="monitor_method_input" id="connect_timeout" type="text" name='connect_timeout'></td>
           </div>
         </div>
         <div>
           <label for="nb_get_retry">retry connection</label>
           <div>
-            <td><input id="nb_get_retry" type="text" name='nb_get_retry'></td>
+            <td><input class="monitor_method_input" id="nb_get_retry" type="text" name='nb_get_retry'></td>
           </div>
         </div>
         <div>
-          <label for="delay_before_retry">delay_before_retry</label>
+          <label for="delay_before_retry">internal</label>
           <div>
-            <td><input id="delay_before_retry" type="text" name='delay_before_retry'></td>
+            <td><input class="monitor_method_input" id="delay_before_retry" type="text" name='delay_before_retry'></td>
           </div>
         </div>
     </div>
@@ -214,8 +214,110 @@
 
 </div>
 
+<script type="text/javascript">
+    var rs_list = []
+    $("#rs_add").click(function(){
+        $("#dialog-form").dialog("open");
+    })
+    
+    $("#dialog-form").dialog({
+        autoOpen: false,
+        height: 600,
+        width: 400,
+        modal: true,
+        buttons: {
+            "save": function(){
+                monitor_new = new Object;
+                monitor = new Object;
+                monitor_new['manager_ip'] = $("#manager_ip").val();
+                monitor_new['server_ip'] = $("#server_ip").val();
+                monitor_new['port'] = $("#rs_port").val();
+                monitor_new['weight'] = $("#weight").val();
+                monitor['type'] = $("#monitor_type").val();
+                
+                $(".monitor_method_input").each(function(){
+                    var key = $(this).attr('id');
+                    var value = $(this).val();
+                    monitor[key] = value;
+                })
+                
+                monitor_new['monitor'] = monitor;
+
+                rs_list.push(monitor_new)
+                rs_table();
+                console.log(rs_list)
+                $(this).dialog("close");
+            },
+            "cancel": function(){
+                $(this).dialog("close");
+            },
+        },   
+        
+        close: function(){},
+
+    });
+
+    //onselect monitor_type
+    $("#monitor_type").change(function(){
+        var monitor_type = $("#monitor_type").val();
+        if (monitor_type == 'TCP_CHECK'){
+            inputlist = {"connect_timeout":"connection timeout"};
+        }
+        else if (monitor_type == 'HTTP_GET'){
+            inputlist = {"path":"path","digest":"digest","connect_timeout":"monitor time out","nb_get_retry":"times","delay_before_retry":"interval"};
+        }
+        else {
+            inputlist = {"eav_path":"eav script","eav_timeout":"eav time out"};
+        }
+        _html = format_monitor_method_input(inputlist)
+        $("#monitor_method").html(_html);
+    });
+
+    function format_monitor_method_input(input_list){
+        var html = ''
+        for (i in input_list){
+            html += '<div><label for="' + i + '">' + 
+                input_list[i] + '</label> <div>' +
+                '<td><input class="monitor_method_input" id="' + i + '" type="text" name="' + 
+                    i + '"></td></div></div>'
+        }
+        return html
+    }
+
+    function rs_table(){
+        var html = ''
+        
+        if (rs_list.length == 0){
+            $("#rs_table_body").html(html)
+        }
+        else {
+            for (rs in rs_list){
+                _rs = rs_list[rs]
+                html += '<tr><td>' + _rs['manager_ip'] + '</td><td>' + _rs['server_ip'] + '</td><td>' +
+                        _rs['weight'] + '</td><td>' + _rs['port'] + '</td><td>' +_rs['monitor']['type'] + '</td><td><a href="javascript:rs_remove(' + rs + ')" ><span></span>delete</a></td></tr>'
+                $("#rs_table_body").html(html)
+            }
+        }
+    }
+
+    function rs_remove(rs){
+        rs_list.splice($.inArray(rs, rs_list), 1);
+        console.log(rs_list);
+        console.log(rs_list.length)
+        rs_table();
+    }
 
 
+
+
+
+
+
+
+
+
+
+</script>
 
 
 
