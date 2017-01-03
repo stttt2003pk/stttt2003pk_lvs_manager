@@ -1,0 +1,22 @@
+####
+---
+
+agent:
+  -  id: stttt2003pk_lvs_cluster01
+     ipadd: 192.168.204.117
+     cluster: stttt2003pk_lvs_cluster
+     area: SZ
+     port: 61777
+
+  -  id: stttt2003pk_lvs_cluster02
+     ipadd: 192.168.204.118
+     cluster: stttt2003pk_lvs_cluster
+     area: SZ
+     port: 61777
+
+cluster:
+  -  id: stttt2003pk_lvs_cluster
+     area: 深圳
+     descript: 深圳集群
+     agent: ['stttt2003pk_lvs_cluster01', 'stttt2003pk_lvs_cluster02']
+     manager_user: ['test']

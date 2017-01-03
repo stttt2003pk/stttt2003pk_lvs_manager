@@ -5,6 +5,8 @@ import os
 
 from tornado.options import define, options
 
+cur_dir = os.path.dirname(os.path.abspath(__file__))
+
 #define domain port 
 domain_name = 'lvs.stttt2003pk.com'
 port = int(8888)
@@ -24,3 +26,4 @@ define("cookies_expires", default=1,help="cookies_expires_days")
 lvs_url_port = 'http://' + domain_name + ':' + str(port) + '/'
 define("lvs_url", default=lvs_url_port, help="lvs_url_port")
 
+define("config", default=os.path.join(cur_dir,"./","config_lvs_cluster_info.yaml"), help="config.yaml file")

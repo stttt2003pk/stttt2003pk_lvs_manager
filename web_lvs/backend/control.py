@@ -26,6 +26,9 @@ import time
 import datetime
 
 import logging 
+from tornado.log import access_log, app_log, gen_log
+
+import yaml
 
 ####real server alived html
 def rs_is_lived(weight):
@@ -208,7 +211,58 @@ class ChartsHandler(BaseHandler):
 	def get(self):
 		self.render2('charts.html')
 
-####
+def search_agent(id):
+	config = yaml.load(open(options.config))
+	agent_list = config['agent']
+	for i in agent_list:
+		if id == i['id']:
+			return i
+
+	return None
+
+def search_cluster(id):
+	config = yaml.load(open(options.config))
+	cluster_list = config['cluster']
+	for i in cluster_list:
+		if id == i['id']:
+			return i
+	
+	return None
+
+
+####cluster list
+class LvsManager(BaseHandler):
+	@tornado.web.authenticated
+
+	def get(self):
+
+		cluster_list = []
+
+        config = yaml.load(open(options.config))
+
+        current_user = self.get_current_user()
+        handler = DB_Model('account')
+        result = handler.getAccountOne(current_user)
+		
+        if result["super_manager"]:
+            cluster_list = config['cluster']
+        elif result["is_manager"]:
+            for name in config['cluster']:
+                if login_name_auth in name['manager_user']:
+                    cluster_list.append[name]
+        else:
+            pass
+
+        for cluster in cluster_list:
+            lb_list = []
+            for lb in cluster['agent']:
+                lb_info = search_agent(lb)
+                lb_list.append({"id":lb_info['id'],"ipadd":lb_info['ipadd']})
+            cluster['lb'] = lb_list
+
+        self.render2('lvsmanager.html',cluster_list=cluster_list)	
+			
+		
 
 
 
