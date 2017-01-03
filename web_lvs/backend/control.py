@@ -267,7 +267,11 @@ class LvsManager(BaseHandler):
         self.render2('lvsmanager.html',cluster_list=cluster_list)
         #self.write(cluster_list[0])
 
-
+class lvsManagerDeployAdd(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        
+        self.render2('lvsmanager_deploy_add.html')
 
 
 

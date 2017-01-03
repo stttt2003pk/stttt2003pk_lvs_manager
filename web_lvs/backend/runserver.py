@@ -29,6 +29,7 @@ class Application(tornado.web.Application):
 			(r"/login_auth", control.LoginAuth),
 			(r"/charts/", control.ChartsHandler),
 			(r"/lvsmanager/", control.LvsManager),
+            (r"/lvsmanager_deploy_add/", control.lvsManagerDeployAdd),
 		]
 
 		handlers = web_path
