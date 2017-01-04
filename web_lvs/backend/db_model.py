@@ -35,6 +35,10 @@ class DB_Model():
         self.db['LvsManagerConfig'].insert(data, manipulate=False)
         return True    
 
+    def getLvsManagerConfigVipInstanceList(self, id):
+        result = self.db['LvsManagerConfig'].find({"cluster_id" : id})
+        return result 
+
 ####test DB_Model
 #handler = DB_Model('test account')
 #print handler.getAccountOne('admin')

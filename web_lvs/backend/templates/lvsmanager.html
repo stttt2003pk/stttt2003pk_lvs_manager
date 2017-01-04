@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 {% block body %}
 {% if current_user is user_is_manager %} 
+{{ current_user }}
 <table id="lvsmanager_table">
 {% for cluster in cluster_list %}
 <tr>

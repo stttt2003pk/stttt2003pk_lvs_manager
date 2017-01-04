@@ -108,7 +108,7 @@ class BaseHandler(tornado.web.RequestHandler, TemplateRendering):
 
 			'xsrf_token': self.xsrf_token,
 			'xsrf_form_html': self.xsrf_form_html,
-
+            #{{ current_user }}
 			'current_user':self.get_current_user(),
 			
 		})
@@ -294,13 +294,22 @@ class lvsManagerDeployAdd(BaseHandler):
 
         for rs in data['rs']:
             rs['port'] = rs['port'].split(',')
-        #this methon will change the data ram, add "_id" as an object, an can't be translate to json and can't be write in tornado
+        #this methon will change the data ram, add "_id" as an object, an can't be translate to json and can't be write in tornado,if manipulate = True
         handler = DB_Model('LvsManagerConfig')
         handler.insertLvsManagerConfigVipInstance(data)
 
         self.write(data)
 
+class LvsManagerDeploy(BaseHandler):
+    @tornado.web.authenticated
 
+    def get(self):
+        id = self.get_argument('id', None)
+        
+        #get the config from db
+        handler = DB_Model('LvsManagerConfig')
+        vipinstanceinfo = handler.getLvsManagerConfigVipInstanceList(id)
+        self.render2('lvsmanager_deploy.html', vipinstanceinfo=vipinstanceinfo, cluster=id)
 
 
 

@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+{% block body %}
+        <div>
+            <h4>cluster_id:{{ cluster }}</h4>
+            <hr>
+            <a href="/lvsmanager_deploy_add/?id={{ cluster }}"><span></span>deploy new vip instance</a>
+        </div>
+        </br>
+
+        <div>
+        {{ vipinstanceinfo }}
+        {% if vipinstanceinfo %}
+            <table id="lvsmanager_table">
+              <thead>
+                <tr>
+                  <th style="width: 10%">VIP Instance</th>
+                  <th style="width: 10%">service</th>
+                  <th style="width: 10%">owner</th>
+                  <th style="width: 10%">VIP group</th>
+                  <th style="width: 10%">protocol</th>
+                  <th style="width: 10%">lb_method</th>
+                  <th style="width: 40%">ops</th>
+                </tr>
+              </thead>
+              <tbody id='publish_table_body'>
+                  {% for vipinstance in vipinstanceinfo %}
+                    <tr {% if vipinstance.status == "offline" %}style="background-color: orange;"{% endif %}>
+                      <td>{{ vipinstance.vip_instance }}</td>
+                      <td>{{ vipinstance.descript }}</td>
+                      <td>{{ vipinstance.owners }}</td>
+                      <td>{% for vip in vipinstance.vip_group %}
+                      {{ vip.vip }}:{{ vip.port }}{% endfor %}</td>
+                      <td>{{ vipinstance.protocol }}</td>
+                      <td>{{ vipinstance.lb_algo }}</td>
+                    </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+        {% else %}
+            <p>the vip instance not exist</p>
+        {% endif %}
+        </div>
+        
+{% endblock %}
