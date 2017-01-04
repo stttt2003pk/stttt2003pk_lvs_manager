@@ -9,9 +9,9 @@
     <td>{{ cluster.area }}</td>
     <td>{% for lb in cluster.lb %}
         {{ lb.id }}:{{ lb.ipadd }}:{{ lb.port }}{% endfor %}</td>
+    <td><a href="/lvsmanager_deploy/?id={{ cluster.id }}"><span></span></span>configuration</a></td>
+    <td><a href="/lvsmanager_deploy_add/?id={{ cluster.id }}" ><span></span>new vip instance</a></td>
 </tr>
-
-
 {% endfor %}
 {% endif %}
 {% endblock %}

@@ -270,8 +270,12 @@ class LvsManager(BaseHandler):
 class lvsManagerDeployAdd(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        
-        self.render2('lvsmanager_deploy_add.html')
+        id = self.get_argument("id", None) 
+        self.render2('lvsmanager_deploy_add.html', cluster=id)
+
+    #from post, set the addition information to the mongo
+    def post(self):
+        pass
 
 
 

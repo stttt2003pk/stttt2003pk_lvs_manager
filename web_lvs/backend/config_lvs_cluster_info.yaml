@@ -10,7 +10,7 @@ agent:
 
   -  id: lvs_server_02
      ipadd: 192.168.204.118
-     cluster: stttt2003pk_lvs_cluster_zone2
+     cluster: stttt2003pk_lvs_cluster_zone1
      area: SZ
      port: 61777
 

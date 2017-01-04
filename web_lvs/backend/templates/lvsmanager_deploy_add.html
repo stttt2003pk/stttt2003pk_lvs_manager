@@ -9,25 +9,25 @@
             <div>
               <label for="vipinstance">VIP Instance</label>
               <div>
-                <td><input id="vip_instance" type="text" name='vip_instance' check-type="required"><span>VIP Instance must be uniq</span></td>
+                <td><input id="vip_instance" class="lvs_manager_deploy_add_vip_input" type="text" name='vip_instance' check-type="required"><span>VIP Instance must be uniq</span></td>
               </div>
             </div>
             <div>
               <label for="descript">service name</label>
               <div>
-                <td><input id="descript" type="text" name='descript' placeholder="service name"></td>
+                <td><input id="descript" class="lvs_manager_deploy_add_vip_input" type="text" name='descript' placeholder="service name"></td>
               </div>
             </div>
             <div>
               <label for="owners">person in charge</label>
               <div>
-                <td><input id="owners" type="text" name='owners' placeholder="负责人"></td>
+                <td><input id="owners" class="lvs_manager_deploy_add_vip_input" type="text" name='owners' placeholder="person in charge"></td>
               </div>
             </div>
             <div>
               <label for="mailto">mail list warning</label>
               <div>
-                <td><input style="width: 310px;" id="mailto" type="text" name='mailto' placeholder="以逗号分割"><span>mail list split by comma</span></td>
+                <td><input style="width: 310px;" id="mailto" class="lvs_manager_deploy_add_vip_input" type="text" name='mailto' placeholder="splite(',')"><span>mail list split by comma</span></td>
               </div>
             </div>
             <div>
@@ -39,7 +39,7 @@
             <div>
               <label for="protocol">protocol</label>
               <div>
-                <select id="protocol" name='protocol'>
+                <select id="protocol" class="lvs_manager_deploy_add_vip_input" name='protocol'>
                     <option value='TCP'>TCP</option>
                     <option value='UDP'>UDP</option>
                 </select>
@@ -48,13 +48,13 @@
             <div>
               <label for="delay_loop">monitor interval</label>
               <div>
-                <td><input style="width: 40px;" id="delay_loop" type="text" name='delay_loop' placeholder="检测间隔" value="6"></td>
+                <td><input style="width: 40px;" id="delay_loop" class="lvs_manager_deploy_add_vip_input" type="text" name='delay_loop' placeholder="interval" value="6"></td>
               </div>
             </div>
             <div>
               <label for="lb_algo">balance method</label>
               <div>
-                <select id="lb_algo" name='lb_algo'>
+                <select id="lb_algo" class="lvs_manager_deploy_add_vip_input" name='lb_algo'>
                     <option value='wrr'>wrr</option>
                     <option value='rr'>rr</option>
                     <option value='lc'>lc</option>
@@ -68,7 +68,7 @@
             <div>
               <label for="lb_kind">lvs type</label>
               <div>
-                <select id="lb_kind" name='lb_kind'>
+                <select id="lb_kind" class="lvs_manager_deploy_add_vip_input" name='lb_kind'>
                     <option value='FNAT'>FNAT</option>
                     <option value='DR'>DR</option>
                     <option value='NAT'>NAT</option>
@@ -79,25 +79,25 @@
             <div>
               <label for="persistence_timeout">persistence timeout</label>
               <div>
-                <td><input style="width: 40px;" id="persistence_timeout" type="text" name='persistence_timeout' placeholder="persistence timeout" value='0' ></td>
+                <td><input style="width: 40px;" id="persistence_timeout" class="lvs_manager_deploy_add_vip_input" type="text" name='persistence_timeout' placeholder="persistence timeout" value='0' ></td>
               </div>
             </div>
             <div>
               <label for="sync_proxy">syn flood defence</label>
               <div>
-                <td><input id="sync_proxy" name='sync_proxy' type='checkbox' value='True' checked="true"></td>
+                <td><input id="sync_proxy" class="lvs_manager_deploy_add_vip_checkbox" name='sync_proxy' type='checkbox' value='True' checked="true"></td>
               </div>
             </div>
             <div>
               <label for="alpha">alpha</label>
               <div>
-                <td><input id="alpha" name='alpha' type='checkbox' value='True' checked="true"><span>是否开启alpha模式,启动时默认rs是down状态，健康检查通过后才添加到lvs pool</span></td>
+                <td><input id="alpha" class="lvs_manager_deploy_add_vip_checkbox" name='alpha' type='checkbox' value='True' checked="true"><span>是否开启alpha模式,启动时默认rs是down状态，健康检查通过后才添加到lvs pool</span></td>
               </div>
             </div>
             <div>
               <label for="omega">omega</label>
               <div>
-                <td><input id="omega" name='omega' type='checkbox' value='True' checked="true"><span>是否开启omega模式，清楚rs时会执行相应的脚本(quorum_up)</span></td>
+                <td><input id="omega" class="lvs_manager_deploy_add_vip_checkbox" name='omega' type='checkbox' value='True' checked="true"><span>是否开启omega模式，清楚rs时会执行相应的脚本(quorum_up)</span></td>
               </div>
             </div>
             <div>
@@ -114,7 +114,7 @@
             </div>
         </form>
         </br>
-        <h4>tor_method"RealServer group</h4>
+        <h4>RealServer group</h4>
         <hr>
         <button id="rs_add"><span></span>add real server</button>
         <table>
@@ -215,6 +215,7 @@
 </div>
 
 <script type="text/javascript">
+    console.log("{{ cluster }}")
     var rs_list = []
     $("#rs_add").click(function(){
         $("#dialog-form").dialog("open");
@@ -306,6 +307,55 @@
         console.log(rs_list.length)
         rs_table();
     }
+
+//submit add json
+    $("#lvs_deploy_add_submit").click(function(){
+        var _rs_list = []
+        post_data = new Object();
+        post_data['cluster_id'] = "{{ cluster }}"
+        $(".lvs_manager_deploy_add_vip_input").each(function(){
+            var key = $(this).attr('id');
+            var value = $(this).val();
+            post_data[key] = value;
+        })
+
+        $(".lvs_manager_deploy_add_vip_checkbox").each(function(){
+            var key = $(this).attr('id');
+            var value = $(this).val();
+            if (value == 'checkd'){
+                var _value = true;
+            } else {
+                var _value = false;
+            }
+            post_data[key] = _value;
+        })
+
+        for(rs in rs_list){
+            if (rs_list[rs]){
+                _rs_list.push(rs_list[rs]);
+            }
+        }
+        
+        post_data['rs'] = _rs_list;
+        //tojson
+        var _post_data = JSON.stringify(post_data);
+        $.ajax({
+            type: 'POST',
+            url: '/lvsmanager_deploy_add/',
+            data: _post_data,
+            cache: false,
+            //beforeSend: function() { loading.show()},
+            success: function(data){
+                //loading.hide();
+                //window.location.href = "/lvsmanager_deploy/?id={{ cluster }}"
+            },
+            error: function(XMLHttpRequest){
+                //loading.hide(); 
+                alert("post_fail" + XMLHttpRequest)
+            },
+        });
+         
+    })	
 
 
 
