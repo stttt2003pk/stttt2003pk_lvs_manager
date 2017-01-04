@@ -32,7 +32,7 @@ class DB_Model():
         return result
                                                                                               
     def insertLvsManagerConfigVipInstance(self, data):
-        self.db['LvsManagerConfig'].insert(data)
+        self.db['LvsManagerConfig'].insert(data, manipulate=False)
         return True    
 
 ####test DB_Model

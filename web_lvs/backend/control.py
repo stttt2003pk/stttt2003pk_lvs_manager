@@ -9,7 +9,7 @@ import tornado.ioloop
 import tornado.options
 from tornado.options import options
 import tornado.web
-from tornado.escape import json_decode
+from tornado.escape import json_decode, json_encode
 
 import pymongo
 from pymongo import Connection
@@ -276,7 +276,7 @@ class lvsManagerDeployAdd(BaseHandler):
     #from post, set the addition information to the mongo
     def post(self):
         
-        data = json_decode(self.request.body)
+        data = json.loads(self.request.body)
         
         data['status'] = 'online'
         data['mailto'] = data['mailto'].split(',')
@@ -294,13 +294,11 @@ class lvsManagerDeployAdd(BaseHandler):
 
         for rs in data['rs']:
             rs['port'] = rs['port'].split(',')
-
+        #this methon will change the data ram, add "_id" as an object, an can't be translate to json and can't be write in tornado
         handler = DB_Model('LvsManagerConfig')
         handler.insertLvsManagerConfigVipInstance(data)
 
-        access_log.info(data)
-
-        self.write('ok')
+        self.write(data)
 
 
 
