@@ -19,18 +19,21 @@ class mongo_conn():
 
 ####which method call which function
 class DB_Model():
-	def __init__(self, method):
-		self.method = method
-#		self.id = id
-		self.mongo = mongo_conn()
-		self.db = self.mongo.db()
-#		self.config = yaml.load(open(options.config))
-#		self.agentlist = config['agent']
-
-	def getAccountOne(self,user):
-		result = self.db['LvsAccount'].find_one({"user":user})
-		return result
-
+    def __init__(self, method):                                                               
+        self.method = method                                                                  
+#       self.id = id 
+        self.mongo = mongo_conn()                                                             
+        self.db = self.mongo.db()
+#       self.config = yaml.load(open(options.config))                                         
+#       self.agentlist = config['agent']                                                      
+    
+    def getAccountOne(self,user):
+        result = self.db['LvsAccount'].find_one({"user":user})
+        return result
+                                                                                              
+    def insertLvsManagerConfigVipInstance(self, data):
+        self.db['LvsManagerConfig'].insert(data)
+        return True    
 
 ####test DB_Model
 #handler = DB_Model('test account')

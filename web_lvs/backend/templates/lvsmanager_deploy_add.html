@@ -33,7 +33,7 @@
             <div>
               <label for="vip_group">VIP group</label>
               <div>
-                <td><input style="width: 310px;" id="vip_group" type="text" name='vip' placeholder="VIP地址"><span>1.1.1.1:80,2.2.2.2:80</span></td>
+                <td><input style="width: 310px;" id="vip_group" class="lvs_manager_deploy_add_vip_input" type="text" name='vip' placeholder="vip group address(split by comma)"><span>1.1.1.1:80,2.2.2.2:80</span></td>
               </div>
             </div>
             <div>
@@ -348,6 +348,7 @@
             success: function(data){
                 //loading.hide();
                 //window.location.href = "/lvsmanager_deploy/?id={{ cluster }}"
+                console.log(data);
             },
             error: function(XMLHttpRequest){
                 //loading.hide(); 
