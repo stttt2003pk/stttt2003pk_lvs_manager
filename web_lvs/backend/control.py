@@ -308,7 +308,7 @@ class LvsManagerDeploy(BaseHandler):
     def get(self):
         id = self.get_argument('id', None)
         
-        #get the config from db
+        #get the config from db, return a mongo cursor
         handler = DB_Model('LvsManagerConfig')
         vipinstanceinfo = handler.getLvsManagerConfigVipInstanceList(id)
         self.render2('lvsmanager_deploy.html', vipinstanceinfo=vipinstanceinfo, cluster=id)
