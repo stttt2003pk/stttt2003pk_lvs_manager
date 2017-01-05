@@ -10,6 +10,7 @@ from pymongo import Connection
 from setting import *
 
 import json
+from bson.objectid import ObjectId
 
 class mongo_conn():
 	def __init__(self):
@@ -38,6 +39,10 @@ class DB_Model():
     def getLvsManagerConfigVipInstanceList(self, id):
         result = self.db['LvsManagerConfig'].find({"cluster_id" : id})
         return result 
+
+    def getLvsManagerConfigVipInstanceInfo(self, id):
+        result = self.db['LvsManagerConfig'].find_one({"_id" : ObjectId(id)})
+        return result
 
 ####test DB_Model
 #handler = DB_Model('test account')

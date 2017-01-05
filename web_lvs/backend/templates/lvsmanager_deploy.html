@@ -1,5 +1,13 @@
 {% extends "index.html" %}
 {% block body %}
+<div>
+  <div>
+    <div>
+        <ul>
+          <li><a href="/lvsmanager/">LVS Manager</a> <span></span></li>
+        </ul>
+    </div>
+  </div>
         <div>
             <h4>cluster_id:{{ cluster }}</h4>
             <hr>
@@ -32,6 +40,7 @@
                       {{ vip.vip }}:{{ vip.port }}{% endfor %}</td>
                       <td>{{ vipinstance.protocol }}</td>
                       <td>{{ vipinstance.lb_algo }}</td>
+                      <td><a href="/lvsmanager_deploy_edit/?id={{ vipinstance._id }}" class='btn btn-sm btn-success'><span></span>EDIT</a></td>
                     </tr>
                   {% endfor %}
               </tbody>
@@ -40,5 +49,5 @@
             <p>the vip instance not exist</p>
         {% endif %}
         </div>
-        
+</div>        
 {% endblock %}

@@ -320,7 +320,7 @@ class LvsManagerDeployEdit(BaseHandler):
     def get(self):
         id = self.get_argument("id",None)
         handler = DB_Model('LvsManagerConfig')
-        vipinstanceinfo = handler.getLvsManagerConfigVipInstanceInfo(id)
+        vipinstanceinfo = handler.getLvsManagerConfigVipInstanceList(id)
         
         vipinstanceinfo['mailto'] = ','.join(vipinstanceinfo['mailto'])
         vipgroup = vipinstanceinfo['vip_group']
@@ -335,7 +335,7 @@ class LvsManagerDeployEdit(BaseHandler):
             rs['i'] = i
             rs['port'] = ','.join(rs['port'])
 
-        self.render2('lvsmanager_deploy_edit.html', vipinstance=vipinstanceinfo, cluster=id)
+        self.render2('lvsmanager_deploy_edit.html', vipinstanceinfo=vipinstanceinfo, cluster=id)
 
 
 

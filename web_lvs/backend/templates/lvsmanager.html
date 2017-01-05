@@ -1,5 +1,13 @@
 {% extends "index.html" %}
 {% block body %}
+<div>
+  <div>
+    <div>
+        <ul>
+          <li><a href="/lvsmanager/">LVS Manager</a> <span></span></li>
+        </ul>
+    </div>
+  </div>
 {% if current_user is user_is_manager %} 
 {{ current_user }}
 <table id="lvsmanager_table">
@@ -15,4 +23,6 @@
 </tr>
 {% endfor %}
 {% endif %}
+
+</div>
 {% endblock %}

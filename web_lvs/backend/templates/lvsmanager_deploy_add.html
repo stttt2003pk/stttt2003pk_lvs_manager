@@ -339,19 +339,25 @@
         post_data['rs'] = _rs_list;
         //tojson
         var _post_data = JSON.stringify(post_data);
+        var load = new Loading();
         $.ajax({
             type: 'POST',
             url: '/lvsmanager_deploy_add/',
             data: _post_data,
             cache: false,
-            //beforeSend: function() { loading.show()},
+            beforeSend: function() { 
+                load.init();
+                load.start();
+            },
             success: function(data){
-                //loading.hide();
-                //window.location.href = "/lvsmanager_deploy/?id={{ cluster }}"
-                console.log(data);
+                setTimeout(function(){
+                    load.stop();
+                    window.location.href = "/lvsmanager_deploy/?id={{ cluster }}"
+                    console.log(data);
+                },3000);
             },
             error: function(XMLHttpRequest){
-                //loading.hide(); 
+                load.stop();
                 alert("post_fail" + XMLHttpRequest)
             },
         });
