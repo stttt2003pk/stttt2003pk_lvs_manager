@@ -19,37 +19,37 @@
             <div>
               <label for="vipinstance">VIP Instance</label>
               <div>
-                <td><input id="vip_instance" type="text" name='vip_instance' check-type="required" value="{{ vipinstance.vip_instance }}"><span>must be uniq</span></td>
+                <td><input id="vip_instance" class="lvs_manager_deploy_add_vip_input" type="text" name='vip_instance' check-type="required" value="{{ vipinstance.vip_instance }}"><span>must be uniq</span></td>
               </div>
             </div>
             <div>
               <label for="descript">service name</label>
               <div>
-                <td><input id="descript" type="text" name='descript' value="{{ vipinstance.descript }}"></td>
+                <td><input id="descript" class="lvs_manager_deploy_add_vip_input" type="text" name='descript' value="{{ vipinstance.descript }}"></td>
               </div>
             </div>
             <div>
               <label for="owners">person in charge</label>
               <div>
-                <td><input id="owners" type="text" name='owners' value="{{ vipinstance.owners }}"></td>
+                <td><input id="owners" class="lvs_manager_deploy_add_vip_input" type="text" name='owners' value="{{ vipinstance.owners }}"></td>
               </div>
             </div>
             <div>
               <label for="mailto">mail list warning</label>
               <div>
-                <td><input style="width: 310px;" id="mailto" type="text" name='mailto' value="{{ vipinstance.mailto }}"><span>mail list split by comma</span></td>
+                <td><input style="width: 310px;" id="mailto" class="lvs_manager_deploy_add_vip_input" type="text" name='mailto' value="{{ vipinstance.mailto }}"><span>mail list split by comma</span></td>
               </div>
             </div>
             <div>
               <label for="vip_group">VIP group</label>
               <div>
-                <td><input style="width: 310px;" id="vip_group" type="text" name='vip' value="{{ vipinstance.vip_group }}"><span>1.1.1.1:80,2.2.2.2:80</span></td>
+                <td><input style="width: 310px;" id="vip_group" class="lvs_manager_deploy_add_vip_input" type="text" name='vip' value="{{ vipinstance.vip_group }}"><span>1.1.1.1:80,2.2.2.2:80</span></td>
               </div>
             </div>
             <div>
               <label for="protocol">protocol</label>
               <div>
-                <select id="protocol" name='protocol'>
+                <select id="protocol" class="lvs_manager_deploy_add_vip_input"  name='protocol'>
                     <option value='{{ vipinstance.protocol }}'>{{ vipinstance.protocol }}</option>
                     <option value='TCP'>TCP</option>
                     <option value='UDP'>UDP</option>
@@ -59,13 +59,13 @@
             <div>
               <label for="delay_loop">monitor interval</label>
               <div>
-                <td><input style="width: 40px;" id="delay_loop" type="text" name='delay_loop' value="{{ vipinstance.delay_loop }}"></td>
+                <td><input style="width: 40px;" id="delay_loop" class="lvs_manager_deploy_add_vip_input"  type="text" name='delay_loop' value="{{ vipinstance.delay_loop }}"></td>
               </div>
             </div>
             <div>
               <label for="lb_algo">balance method</label>
               <div>
-                <select id="lb_algo" name='lb_algo'>
+                <select id="lb_algo" class="lvs_manager_deploy_add_vip_input"  name='lb_algo'>
                     <option value='{{ vipinstance.lb_algo }}'>{{ vipinstance.lb_algo }}</option>
                     <option value='wrr'>wrr</option>
                     <option value='rr'>rr</option>
@@ -80,7 +80,7 @@
             <div>
               <label for="lb_kind">lvs type</label>
               <div>
-                <select id="lb_kind" name='lb_kind'>
+                <select id="lb_kind" class="lvs_manager_deploy_add_vip_input"  name='lb_kind'>
                     <option value='{{ vipinstance.lb_kind }}'>{{ vipinstance.lb_kind }}</option>
                     <option value='FNAT'>FNAT</option>
                     <option value='DR'>DR</option>
@@ -92,42 +92,42 @@
             <div>
               <label for="persistence_timeout">persistence timeout</label>
               <div>
-                <td><input style="width: 40px;" id="persistence_timeout" type="text" name='persistence_timeout' placeholder="persistence timeout" value='{{ vipinstance.persistence_timeout }}' ></td>
+                <td><input style="width: 40px;" id="persistence_timeout" class="lvs_manager_deploy_add_vip_input" type="text" name='persistence_timeout' placeholder="persistence timeout" value='{{ vipinstance.persistence_timeout }}' ></td>
               </div>
             </div>
             <div>
               <label for="sync_proxy">syn flood defence</label>
               <div>
-                <td><input id="sync_proxy" name='sync_proxy' type='checkbox' value='True' {% if vipinstance.sync_proxy %}checked="true"{% endif %}></td>
+                <td><input id="sync_proxy" class="lvs_manager_deploy_add_vip_checkbox " name='sync_proxy' type='checkbox' value='True' {% if vipinstance.sync_proxy %}checked="true"{% endif %}></td>
               </div>
             </div>
             <div>
               <label for="alpha">alpha</label>
               <div>
-                <td><input id="alpha" name='alpha' type='checkbox' value='True' {% if vipinstance.alpha %}checked="true"{% endif %}><span>是否开启alpha模式,启动时默认rs是down状态，健康检查通过后才添加到lvs pool</span></td>
+                <td><input id="alpha" class="lvs_manager_deploy_add_vip_checkbox "  name='alpha' type='checkbox' value='True' {% if vipinstance.alpha %}checked="true"{% endif %}><span>是否开启alpha模式,启动时默认rs是down状态，健康检查通过后才添加到lvs pool</span></td>
               </div>
             </div>
             <div>
               <label for="omega">omega</label>
               <div>
-                <td><input id="omega" name='omega' type='checkbox' value='True' {% if vipinstance.omega %}checked="true"{% endif %}><span>是否开启omega模式，清楚rs时会执行相应的脚本(quorum_up)</span></td>
+                <td><input id="omega" class="lvs_manager_deploy_add_vip_checkbox " name='omega' type='checkbox' value='True' {% if vipinstance.omega %}checked="true"{% endif %}><span>是否开启omega模式，清楚rs时会执行相应的脚本(quorum_up)</span></td>
               </div>
             </div>
             <div>
               <label for="quorum">quorum</label>
               <div>
-                <td><input style="width: 40px;" id="quorum" type="text" name='quorum' value='{{ vipinstance.quorum }}' ><span>service limit</span></td>
+                <td><input style="width: 40px;" id="quorum" class="lvs_manager_deploy_add_vip_input" type="text" name='quorum' value='{{ vipinstance.quorum }}' ><span>service limit</span></td>
               </div>
             </div>
             <div>
               <label for="hysteresis">hysteresis</label>
               <div>
-                <td><input style="width: 40px;" id="hysteresis" type="text" name='hysteresis' value='{{ vipinstance.hysteresis }}'><span>delay factor</span></td>
+                <td><input style="width: 40px;" id="hysteresis" class="lvs_manager_deploy_add_vip_input" type="text" name='hysteresis' value='{{ vipinstance.hysteresis }}'><span>delay factor</span></td>
               </div>
             </div>
         </form>
         </br>
-        <h4>RealServer组</h4>
+        <h4>RealServer group</h4>
         <hr>
         <button id="rs_add"><span></span>add real server</button>
         <table>
@@ -441,9 +441,12 @@
     }
     //remove the obj from rs_list
     function rs_remove(rs){
-        _rs = rs_list[rs]
-        rs_list.splice($.inArray(_rs, rs_list), 1);
-        rs_table();
+        bootbox.confirm("r u sure to remove this real server form the rs_list", function(){
+        
+            _rs = rs_list[rs]
+            rs_list.splice($.inArray(_rs, rs_list), 1);
+            rs_table();
+        })
     }
 
     //edit dialog
@@ -508,6 +511,66 @@
             },
         },
         close: function(){},
+    })
+
+    $("#lvs_deploy_add_submit").click(function(){
+        bootbox.confirm("save the edition to CMDB", function(result){
+            if(result){
+                var _rs_list = [];
+                post_data = new Object();
+                post_data['cluster_id'] = "{{ vipinstance.cluster_id }}"
+                
+                $(".lvs_manager_deploy_add_vip_input").each(function(){
+                    var key = $(this).attr('id');
+                    var value = $(this).val();
+                    post_data[key] = value;
+                })
+                $(".lvs_manager_deploy_add_vip_checkbox").each(function(){
+                    var key = $(this).attr('id');
+                    var value = $(this).attr('checked');
+                    if(value == 'checked'){
+                        var _value = true;
+                    }
+                    else {
+                        var _value = false;
+                    }
+                    post_data[key] = _value;
+                })
+
+                for (rs in rs_list){
+                    if(rs_list[rs]) {
+                        _rs_list.push(rs_list[rs])
+                    }
+                }
+                post_data['rs'] = _rs_list
+
+                //ajax post
+                var _post_data = JSON.stringify(post_data)
+                var load = new Loading();
+                $.ajax({
+                    type: 'POST',
+                    url: '/lvsmanager_deploy_edit/?id={{ vipinstance._id}}',
+                    data: _post_data,
+                    cache: false ,
+                    beforeSend: function(){
+                        load.init();
+                        load.start();
+                    },
+                    success: function(data){
+                        setTimeout(function(){
+                            window.location.href="/lvsmanager_deploy/?id={{ vipinstance.cluster_id }}"
+                            load.stop(); 
+                        },3000)
+                    },
+                    error: function(XMLHttpRequest){
+                        load.stop();
+                        bootbox.alert("post_fail" + XMLHttpRequest);
+                    },
+                    
+                })
+            }
+        })
+        
     })
 
 </script>

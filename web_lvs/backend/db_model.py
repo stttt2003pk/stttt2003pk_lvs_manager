@@ -44,6 +44,9 @@ class DB_Model():
         result = self.db['LvsManagerConfig'].find_one({"_id" : ObjectId(id)})
         return result
 
+    def UpdateLvsManagerConfigVipInstance(self, id, data):
+        result = self.db['LvsManagerConfig'].update({"_id": ObjectId(id)}, data)
+
 ####test DB_Model
 #handler = DB_Model('test account')
 #print handler.getAccountOne('admin')

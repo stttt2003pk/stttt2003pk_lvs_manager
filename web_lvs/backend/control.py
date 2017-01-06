@@ -337,6 +337,27 @@ class LvsManagerDeployEdit(BaseHandler):
 
         self.render2('lvsmanager_deploy_edit.html', vipinstance=vipinstanceinfo, cluster=id)
 
+    def post(self):
+        id = self.get_argument("id",None)
+        data = json.loads(self.request.body)
+        data['mailto'] = data['mailto'].split(',')
+        vip_group = data['vip_group'].split(',')
+        vip_group_list = []
+        for vip in vip_group:
+            vip_port = vip.split(':')
+            vip_group_list.append({
+                                    "vip": vip_port[0],
+                                    "port": vip_port[1]
+                                })
+        data['vip_group'] = vip_group_list
+        for rs in data['rs']:
+            rs['port'] = rs['port'].split(',')           
+
+        #write addition into db
+        handler = DB_Model('LvsManagerConfig')
+        handler.UpdateLvsManagerConfigVipInstance(id, data)
+        self.write(data)
+
 
 #api get the real server list in the db
 class lvsManagerDeployGetRsList(BaseHandler):
