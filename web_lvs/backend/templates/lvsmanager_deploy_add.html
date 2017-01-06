@@ -302,9 +302,8 @@
     }
 
     function rs_remove(rs){
-        rs_list.splice($.inArray(rs, rs_list), 1);
-        //console.log(rs_list);
-        //console.log(rs_list.length)
+        _rs = rs_list[rs]
+        rs_list.splice($.inArray(_rs, rs_list), 1);
         rs_table();
     }
 

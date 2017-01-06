@@ -337,6 +337,7 @@ class LvsManagerDeployEdit(BaseHandler):
 
         self.render2('lvsmanager_deploy_edit.html', vipinstance=vipinstanceinfo, cluster=id)
 
+
 #api get the real server list in the db
 class lvsManagerDeployGetRsList(BaseHandler):
 
