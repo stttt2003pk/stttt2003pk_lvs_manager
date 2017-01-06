@@ -337,8 +337,21 @@ class LvsManagerDeployEdit(BaseHandler):
 
         self.render2('lvsmanager_deploy_edit.html', vipinstance=vipinstanceinfo, cluster=id)
 
+#api get the real server list in the db
+class lvsManagerDeployGetRsList(BaseHandler):
 
+    def get(self):
+        id = self.get_argument("id",None)
+        handler = DB_Model('LvsManagerConfig')
+        vipinstanceinfo = handler.getLvsManagerConfigVipInstanceInfo(id)
 
+        if vipinstanceinfo != None:
+            for i,rs in enumerate(vipinstanceinfo['rs']):
+                rs['i'] = i
+                rs['port'] = ','.join(rs['port'])
+            self.write(json.dumps(vipinstanceinfo['rs']))
+        else:
+            self.write('api test')
 
 
 
