@@ -47,6 +47,16 @@ class DB_Model():
     def UpdateLvsManagerConfigVipInstance(self, id, data):
         result = self.db['LvsManagerConfig'].update({"_id": ObjectId(id)}, data)
 
+    def UpdateLvsManagerConfigVipInstanceToOffline(self, id):
+        result = self.db['LvsManagerConfig'].update({"_id": ObjectId(id)},{"$set": {"status":"offline"}})
+
+    def UpdateLvsManagerConfigVipInstanceToOnline(self, id):
+        result = self.db['LvsManagerConfig'].update({"_id": ObjectId(id)},{"$set": {"status":"online"}})
+
+    def DelLvsManagerConfigVipInstance(self, id):
+        result = self.db['LvsManagerConfig'].remove({"_id": ObjectId(id)})
+
+
 ####test DB_Model
 #handler = DB_Model('test account')
 #print handler.getAccountOne('admin')

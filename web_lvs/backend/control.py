@@ -360,7 +360,7 @@ class LvsManagerDeployEdit(BaseHandler):
 
 
 #api get the real server list in the db
-class lvsManagerDeployGetRsList(BaseHandler):
+class LvsManagerDeployGetRsList(BaseHandler):
 
     def get(self):
         id = self.get_argument("id",None)
@@ -373,11 +373,36 @@ class lvsManagerDeployGetRsList(BaseHandler):
                 rs['port'] = ','.join(rs['port'])
             self.write(json.dumps(vipinstanceinfo['rs']))
         else:
-            self.write('api test')
+            self.write('ok')
+
+#api offline the vip instance
+class LvsManagerDeployOffline(BaseHandler):
+
+    def post(self):
+        data = json.loads(self.request.body)
+        id = data['id']
+        handler = DB_Model('LvsManagerConfig')
+        handler.UpdateLvsManagerConfigVipInstanceToOffline(id)
+        self.write('ok')
+
+#api online the vip instance
+class LvsManagerDeployOnline(BaseHandler):
+    def post(self):
+        data = json.loads(self.request.body)
+        id = data['id']
+        handler = DB_Model('LvsManagerConfig')
+        handler.UpdateLvsManagerConfigVipInstanceToOnline(id)
+        self.write('ok')
 
 
-
-
+#api delete the vip instance
+class LvsManagerDeployDel(BaseHandler):
+    def post(self):
+        data = json.loads(self.request.body)
+        id = data['id']
+        handler = DB_Model('LvsManagerConfig')
+        handler.DelLvsManagerConfigVipInstance(id)
+        self.write('ok')
 
 ####saltstackwork
 class saltstackwork():

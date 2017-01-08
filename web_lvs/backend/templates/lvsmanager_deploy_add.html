@@ -295,7 +295,7 @@
             for (rs in rs_list){
                 _rs = rs_list[rs]
                 html += '<tr><td>' + _rs['manager_ip'] + '</td><td>' + _rs['server_ip'] + '</td><td>' +
-                        _rs['weight'] + '</td><td>' + _rs['port'] + '</td><td>' +_rs['monitor']['type'] + '</td><td><a href="javascript:rs_remove(' + rs + ')" ><span></span>delete</a></td></tr>'
+                        _rs['weight'] + '</td><td>' + _rs['port'] + '</td><td>' +_rs['monitor']['type'] + '</td><td><a href="javascript:rs_remove(' + rs + ')" class="btn btn-danger"><span></span>delete</a></td></tr>'
                 $("#rs_table_body").html(html)
             }
         }

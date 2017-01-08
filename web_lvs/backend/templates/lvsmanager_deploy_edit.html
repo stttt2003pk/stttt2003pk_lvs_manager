@@ -381,7 +381,7 @@
             for (rs in rs_list){
                 _rs = rs_list[rs]
                 html += '<tr><td>' + _rs['manager_ip'] + '</td><td>' + _rs['server_ip'] + '</td><td>' +
-            _rs['weight'] + '</td><td>' + _rs['port'] + '</td><td>' +_rs['monitor']['type'] + '</td><td><a href="javascript:rs_remove(' + rs + ')" ><span></span>delete</a><a style="position: relative ; left: 10px;" href="javascript:rs_edit(' + rs + ')" ><span></span>edit</a></td></tr>'
+            _rs['weight'] + '</td><td>' + _rs['port'] + '</td><td>' +_rs['monitor']['type'] + '</td><td><a href="javascript:rs_edit(' + rs + ')" class="btn btn-warning"><span></span>edit</a> <a style="position: relative ; left: 10px;" href="javascript:rs_remove(' + rs + ')" class="btn btn-danger"><span></span>delete</a></td></tr>'
                 $("#rs_table_body").html(html)
             }
         }
@@ -441,11 +441,12 @@
     }
     //remove the obj from rs_list
     function rs_remove(rs){
-        bootbox.confirm("r u sure to remove this real server form the rs_list", function(){
-        
-            _rs = rs_list[rs]
-            rs_list.splice($.inArray(_rs, rs_list), 1);
-            rs_table();
+        bootbox.confirm("r u sure to remove this real server form the rs_list", function(result){
+            if(result){ 
+                _rs = rs_list[rs]
+                rs_list.splice($.inArray(_rs, rs_list), 1);
+                rs_table();
+            }
         })
     }
 

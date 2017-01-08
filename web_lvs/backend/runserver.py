@@ -32,7 +32,10 @@ class Application(tornado.web.Application):
             (r"/lvsmanager_deploy_add/", control.lvsManagerDeployAdd),
             (r"/lvsmanager_deploy/", control.LvsManagerDeploy),
             (r"/lvsmanager_deploy_edit/", control.LvsManagerDeployEdit),
-            (r"/lvsmanager_deploy_get_rs_list/", control.lvsManagerDeployGetRsList),
+            (r"/lvsmanager_deploy_get_rs_list/", control.LvsManagerDeployGetRsList),
+            (r"/lvsmanager_deploy_offline/", control.LvsManagerDeployOffline),
+            (r"/lvsmanager_deploy_online/", control.LvsManagerDeployOnline),
+            (r"/lvsmanager_deploy_delete/", control.LvsManagerDeployDel),
 		]
 
 		handlers = web_path
