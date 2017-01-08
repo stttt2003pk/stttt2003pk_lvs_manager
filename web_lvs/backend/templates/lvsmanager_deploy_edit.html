@@ -12,43 +12,43 @@
   </div>
 
   <div>
-    <div id='lvsmanager_deploy_add_body'>
+    <div id='lvsmanager_deploy_add_body' class='col-md-12'>
         <h4>Edit Vip Instance(Instance Name:{{ vipinstance.vip_instance}} Cmdb_Id:{{ vipinstance._id }})</h4>
         <hr>
-        <form>
-            <div>
-              <label for="vipinstance">VIP Instance</label>
-              <div>
+        <form class="form-horizontal">
+            <div class="form-group">
+              <label for="vipinstance" class="col-sm-2 control-label">VIP Instance</label>
+              <div class="col-sm-10">
                 <td><input id="vip_instance" class="lvs_manager_deploy_add_vip_input" type="text" name='vip_instance' check-type="required" value="{{ vipinstance.vip_instance }}"><span>must be uniq</span></td>
               </div>
             </div>
-            <div>
-              <label for="descript">service name</label>
-              <div>
+            <div class="form-group">
+              <label for="descript" class="col-sm-2 control-label">Service Name</label>
+              <div class="col-sm-10">
                 <td><input id="descript" class="lvs_manager_deploy_add_vip_input" type="text" name='descript' value="{{ vipinstance.descript }}"></td>
               </div>
             </div>
-            <div>
-              <label for="owners">person in charge</label>
-              <div>
+            <div class="form-group">
+              <label for="owners" class="col-sm-2 control-label">Person In Charge</label>
+              <div class="col-sm-10">
                 <td><input id="owners" class="lvs_manager_deploy_add_vip_input" type="text" name='owners' value="{{ vipinstance.owners }}"></td>
               </div>
             </div>
-            <div>
-              <label for="mailto">mail list warning</label>
-              <div>
+            <div class="form-group">
+              <label for="mailto" class="col-sm-2 control-label">Mail List Warning</label>
+              <div class="col-sm-10">
                 <td><input style="width: 310px;" id="mailto" class="lvs_manager_deploy_add_vip_input" type="text" name='mailto' value="{{ vipinstance.mailto }}"><span>mail list split by comma</span></td>
               </div>
             </div>
-            <div>
-              <label for="vip_group">VIP group</label>
-              <div>
+            <div class="form-group">
+              <label for="vip_group" class="col-sm-2 control-label">Vip Group</label>
+              <div class="col-sm-10">
                 <td><input style="width: 310px;" id="vip_group" class="lvs_manager_deploy_add_vip_input" type="text" name='vip' value="{{ vipinstance.vip_group }}"><span>1.1.1.1:80,2.2.2.2:80</span></td>
               </div>
             </div>
-            <div>
-              <label for="protocol">protocol</label>
-              <div>
+            <div class="form-group">
+              <label for="protocol" class="col-sm-2 control-label">Protocol</label>
+              <div class="col-sm-10">
                 <select id="protocol" class="lvs_manager_deploy_add_vip_input"  name='protocol'>
                     <option value='{{ vipinstance.protocol }}'>{{ vipinstance.protocol }}</option>
                     <option value='TCP'>TCP</option>
@@ -56,15 +56,15 @@
                 </select>
               </div>
             </div>
-            <div>
-              <label for="delay_loop">monitor interval</label>
-              <div>
+            <div class="form-group">
+              <label for="delay_loop" class="col-sm-2 control-label">Monitor Interval</label>
+              <div class="col-sm-10">
                 <td><input style="width: 40px;" id="delay_loop" class="lvs_manager_deploy_add_vip_input"  type="text" name='delay_loop' value="{{ vipinstance.delay_loop }}"></td>
               </div>
             </div>
-            <div>
-              <label for="lb_algo">balance method</label>
-              <div>
+            <div class="form-group">
+              <label for="lb_algo" class="col-sm-2 control-label">Balance Method</label>
+              <div class="col-sm-10">
                 <select id="lb_algo" class="lvs_manager_deploy_add_vip_input"  name='lb_algo'>
                     <option value='{{ vipinstance.lb_algo }}'>{{ vipinstance.lb_algo }}</option>
                     <option value='wrr'>wrr</option>
@@ -77,9 +77,9 @@
                 </select>
               </div>
             </div>
-            <div>
-              <label for="lb_kind">lvs type</label>
-              <div>
+            <div class="form-group">
+              <label for="lb_kind" class="col-sm-2 control-label">Lvs Type</label>
+              <div class="col-sm-10">
                 <select id="lb_kind" class="lvs_manager_deploy_add_vip_input"  name='lb_kind'>
                     <option value='{{ vipinstance.lb_kind }}'>{{ vipinstance.lb_kind }}</option>
                     <option value='FNAT'>FNAT</option>
@@ -89,56 +89,58 @@
                 </select>
               </div>
             </div>
-            <div>
-              <label for="persistence_timeout">persistence timeout</label>
-              <div>
+            <div class="form-group">
+              <label for="persistence_timeout" class="col-sm-2 control-label">Persistence timeout</label>
+              <div class="col-sm-10">
                 <td><input style="width: 40px;" id="persistence_timeout" class="lvs_manager_deploy_add_vip_input" type="text" name='persistence_timeout' placeholder="persistence timeout" value='{{ vipinstance.persistence_timeout }}' ></td>
               </div>
             </div>
-            <div>
-              <label for="sync_proxy">syn flood defence</label>
-              <div>
+            <div class="form-group">
+              <label for="sync_proxy" class="col-sm-2 control-label">Syn Flood Defence</label>
+              <div class="col-sm-10">
                 <td><input id="sync_proxy" class="lvs_manager_deploy_add_vip_checkbox " name='sync_proxy' type='checkbox' value='True' {% if vipinstance.sync_proxy %}checked="true"{% endif %}></td>
               </div>
             </div>
-            <div>
-              <label for="alpha">alpha</label>
-              <div>
+            <div class="form-group">
+              <label for="alpha" class="col-sm-2 control-label">Alpha</label>
+              <div class="col-sm-10">
                 <td><input id="alpha" class="lvs_manager_deploy_add_vip_checkbox "  name='alpha' type='checkbox' value='True' {% if vipinstance.alpha %}checked="true"{% endif %}><span>是否开启alpha模式,启动时默认rs是down状态，健康检查通过后才添加到lvs pool</span></td>
               </div>
             </div>
-            <div>
-              <label for="omega">omega</label>
-              <div>
+            <div class="form-group">
+              <label for="omega" class="col-sm-2 control-label">Omega</label>
+              <div class="col-sm-10">
                 <td><input id="omega" class="lvs_manager_deploy_add_vip_checkbox " name='omega' type='checkbox' value='True' {% if vipinstance.omega %}checked="true"{% endif %}><span>是否开启omega模式，清楚rs时会执行相应的脚本(quorum_up)</span></td>
               </div>
             </div>
-            <div>
-              <label for="quorum">quorum</label>
-              <div>
+            <div class="form-group">
+              <label for="quorum" class="col-sm-2 control-label">Quorum</label>
+              <div class="col-sm-10">
                 <td><input style="width: 40px;" id="quorum" class="lvs_manager_deploy_add_vip_input" type="text" name='quorum' value='{{ vipinstance.quorum }}' ><span>service limit</span></td>
               </div>
             </div>
-            <div>
-              <label for="hysteresis">hysteresis</label>
-              <div>
+            <div class="form-group">
+              <label for="hysteresis" class="col-sm-2 control-label">Hysteresis</label>
+              <div class="col-sm-10">
                 <td><input style="width: 40px;" id="hysteresis" class="lvs_manager_deploy_add_vip_input" type="text" name='hysteresis' value='{{ vipinstance.hysteresis }}'><span>delay factor</span></td>
               </div>
             </div>
         </form>
         </br>
-        <h4>RealServer group</h4>
+        <h4 class="col-sm-2">RealServer group</h4>
+        </br>
         <hr>
-        <button id="rs_add"><span></span>add real server</button>
-        <table>
+        <button id="rs_add" class="btn btn-success" style="position: relative;left: 20px;"><span></span>Add Real Server</button>
+        <hr>
+        <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <th style="width: 10%">server manage IP</th>
-                  <th style="width: 10%">service IP</th>
-                  <th style="width: 10%">weight</th>
-                  <th style="width: 40%">port list</th>
-                  <th style="width: 10%">monitor</th>
-                  <th>operation</th>
+                  <th style="width: 10%">Server Manage IP</th>
+                  <th style="width: 10%">Service Ip</th>
+                  <th style="width: 10%">Weight</th>
+                  <th style="width: 40%">Port List</th>
+                  <th style="width: 10%">Monitor</th>
+                  <th>Operation</th>
                 </tr>
               </thead>
               <tbody id='rs_table_body'>
@@ -155,42 +157,42 @@
               </tbody>
         </table>
         <hr>
-        <button style="position: relative;left: 770px;" id="lvs_deploy_add_submit" ><span></span>save</button>
-        <a href="/lvsmanager_deploy/?id={{ vipinstance.cluster_id }}" style="position: relative;left: 770px;"><span></span>back</a>
+        <button style="position: relative;left: 20px;" id="lvs_deploy_add_submit" class="btn btn-danger"><span></span>Save</button>
+        <a href="/lvsmanager_deploy/?id={{ vipinstance.cluster_id }}" style="position: relative;left: 20px;" class="btn btn-primary"><span></span>Back</a>
     </div>
 
 
   <!--dialog edit rs -->
-  <div id="dialog-form" title="new rs">
+  <div id="dialog-form" title="Add New Rs">
   <form>
   <fieldset>
-    <div>
-      <label for="manager_ip">manage IP</label>
-      <div>
-        <td><input id="manager_ip" type="text" name='manager_ip'><span>IP for login</span></td>
+    <div class="control-group">
+      <label for="manager_ip" class="control-label">Manage Ip</label>
+      <div class="controls">
+        <td><input id="manager_ip" type="text" name='manager_ip'><span>Ip For Login</span></td>
       </div>
     </div>
-    <div>
-      <label for="server_ip">service ip</label>
-      <div>
+    <div class="control-group">
+      <label for="server_ip" class="control-label">Service Ip</label>
+      <div class="controls">
         <td><input id="server_ip" type="text" name='server_ip'><span>IP for service</span></td>
       </div>
     </div>
-    <div>
-      <label for="weight">weight</label>
-      <div>
-        <td><input id="weight" type="text" name='weight'><span>real server weight<span></td>
+    <div class="control-group">
+      <label for="weight" class="control-label">Weight</label>
+      <div class="controls">
+        <td><input id="weight" type="text" name='weight'><span>Real Server Weight<span></td>
       </div>
     </div>
-    <div>
-      <label for="rs_port">port list</label>
-      <div>
+    <div class="control-group">
+      <label for="rs_port" class="control-label">Port List</label>
+      <div class="controls">
         <td><input id="rs_port" type="text" name='rs_port'><span>port list split(',')</span></td>
       </div>
     </div>
-    <div>
-      <label for="monitor_type">monitor type</label>
-      <div>
+    <div class="control-group">
+      <label for="monitor_type" class="control-label">Monitor Type</label>
+      <div class="controls">
         <select id="monitor_type" name='monitor_type'>
             <option value='HTTP_GET'>HTTP_GET</option>
             <option value='TCP_CHECK'>TCP_CHECK</option>
@@ -199,33 +201,33 @@
       </div>
     </div>
     <div id="monitor_method">
-        <div>
-          <label for="path">path</label>
-          <div>
+        <div class="control-group">
+          <label for="path" class="control-label">Path</label>
+          <div class="controls">
             <td><input id="path" class="monitor_method_input" type="text" name='path'></td>
           </div>
         </div>
-        <div>
-          <label for="digest">digest</label>
-          <div>
+        <div class="control-group">
+          <label for="digest" class="control-label">Digest</label>
+          <div class="controls">
             <td><input id="digest" type="text" name='digest'></td>
           </div>
         </div>
-        <div>
-          <label for="connect_timeout">connection_timeout</label>
-          <div>
+        <div class="control-group">
+          <label for="connect_timeout" class="control-label">Connection_timeout</label>
+          <div class="controls">
             <td><input id="connect_timeout" class="monitor_method_input" type="text" name='connect_timeout'></td>
           </div>
         </div>
-        <div>
-          <label for="nb_get_retry">retry connection</label>
-          <div>
+        <div class="control-group">
+          <label for="nb_get_retry" class="control-label">Retry Connection</label>
+          <div class="controls">
             <td><input id="nb_get_retry" class="monitor_method_input" type="text" name='nb_get_retry'></td>
           </div>
         </div>
-        <div>
-          <label for="delay_before_retry">internal</label>
-          <div>
+        <div class="control-group">
+          <label for="delay_before_retry" class="control-label">Internal</label>
+          <div class="controls">
             <td><input id="delay_before_retry" class="monitor_method_input" type="text" name='delay_before_retry'></td>
           </div>
         </div>
@@ -238,34 +240,34 @@
   <div id="dialog-form-edit" title="Edit Real Server Configuration">
     <form>
     <fieldset>
-        <label id="edit_record_rs_num" type="text"></label>
-      <div>
-        <label for="manager_ip">manage IP</label>
-        <div>
+        <label id="edit_record_rs_num" type="text" class="control-label"></label>
+      <div class="control-group">
+        <label for="manager_ip" class="control-label">Manage IP</label>
+        <div class="controls">
           <td><input id="edit_manager_ip" type="text" name='manager_ip'><span>IP for login</span></td>
         </div>
     </div>
-    <div>
-        <label for="server_ip">service ip</label>
-        <div>
+    <div class="control-group">
+        <label for="server_ip" class="control-label">Service Ip</label>
+        <div class="controls">
           <td><input id="edit_server_ip" type="text" name='server_ip'><span>IP for service</span></td>
         </div>
     </div>
-    <div>
-        <label for="weight">weight</label>
-        <div>
+    <div class="control-group">
+        <label for="weight" class="control-label">Weight</label>
+        <div class="controls">
           <td><input id="edit_weight" type="text" name='weight'><span>real server weight</span></td>
         </div>
     </div>
-    <div>
-        <label for="rs_port">port list</label>
-        <div>
+    <div class="control-group">
+        <label for="rs_port" class="control-label">Port List</label>
+        <div class="controls">
           <td><input id="edit_rs_port" type="text" name='rs_port'><span>port list split(',')</span></td>
         </div>
     </div>
-    <div>
-        <label for="monitor_type">monitor type</label>
-        <div>
+    <div class="control-group">
+        <label for="monitor_type" class="control-label">Monitor Type</label>
+        <div class="controls">
           <select id="edit_monitor_type" name='monitor_type'>
             <option value='HTTP_GET'>HTTP_GET</option>
             <option value='TCP_CHECK'>TCP_CHECK</option>
@@ -274,33 +276,33 @@
         </div>
     </div>
     <div id="edit_monitor_method">
-        <div>
-          <label for="path">path</label>
-          <div>
+        <div class="control-group">
+          <label for="path" class="control-label">Path</label>
+          <div class="controls">
             <td><input id="path" type="text" name='path'></td>
           </div>
         </div>
-        <div>
-          <label for="digest">digest</label>
-          <div>
+        <div class="control-group">
+          <label for="digest" class="control-label">Digest</label>
+          <div class="controls">
             <td><input id="digest" type="text" name='digest'></td>
           </div>
         </div>
-        <div>
-          <label for="edit_connect_timeout">connection_timeout</label>
-          <div>
+        <div class="control-group">
+          <label for="edit_connect_timeout" class="control-label">Connection_timeout</label>
+          <div class="controls">
             <td><input id="connect_timeout" type="text" name='connect_timeout'></td>
           </div>
         </div>
-        <div>
-          <label for="nb_get_retry">retry connection</label>
-          <div>
+        <div class="control-group">
+          <label for="nb_get_retry" class="control-label">Retry Connection</label>
+          <div class="controls">
             <td><input id="nb_get_retry" type="text" name='nb_get_retry'></td>
           </div>
         </div>
-        <div>
-          <label for="delay_before_retry">internal</label>
-          <div>
+        <div class="control-group">
+          <label for="delay_before_retry" class="control-label">Internal</label>
+          <div class="controls">
             <td><input id="delay_before_retry" type="text" name='delay_before_retry'></td>
           </div>
         </div>
@@ -366,6 +368,9 @@
         },   
         
         close: function(){},
+        open: function (event, ui){
+            $(".ui-dialog-titlebar-close", $(this).parent()).hide();
+        },
     });
 
 
@@ -381,7 +386,7 @@
             for (rs in rs_list){
                 _rs = rs_list[rs]
                 html += '<tr><td>' + _rs['manager_ip'] + '</td><td>' + _rs['server_ip'] + '</td><td>' +
-            _rs['weight'] + '</td><td>' + _rs['port'] + '</td><td>' +_rs['monitor']['type'] + '</td><td><a href="javascript:rs_edit(' + rs + ')" class="btn btn-warning"><span></span>edit</a> <a style="position: relative ; left: 10px;" href="javascript:rs_remove(' + rs + ')" class="btn btn-danger"><span></span>delete</a></td></tr>'
+            _rs['weight'] + '</td><td>' + _rs['port'] + '</td><td>' +_rs['monitor']['type'] + '</td><td><a href="javascript:rs_edit(' + rs + ')" class="btn btn-warning"><span></span>Edit</a> <a style="position: relative ; left: 10px;" href="javascript:rs_remove(' + rs + ')" class="btn btn-danger"><span></span>Delete</a></td></tr>'
                 $("#rs_table_body").html(html)
             }
         }
@@ -391,13 +396,13 @@
     $("#monitor_type").change(function(){
         var monitor_type = $("#monitor_type").val();
         if (monitor_type == 'TCP_CHECK'){
-            inputlist = {"connect_timeout":"connection timeout"};
+            inputlist = {"connect_timeout":"Connection timeout"};
         }
         else if (monitor_type == 'HTTP_GET'){
-            inputlist = {"path":"path","digest":"digest","connect_timeout":"monitor time out","nb_get_retry":"times","delay_before_retry":"interval"};
+            inputlist = {"path":"Path","digest":"Digest","connect_timeout":"Monitor Time Out","nb_get_retry":"Times","delay_before_retry":"Interval"};
         }
         else {
-            inputlist = {"eav_path":"eav script","eav_timeout":"eav time out"};
+            inputlist = {"misc_path":"Eav script","misc_timeout":"Eav time out"};
         }
         _html = format_monitor_method_input(inputlist)
         $("#monitor_method").html(_html);
@@ -406,13 +411,13 @@
     $("#edit_monitor_type").change(function(){
         var monitor_type = $("#edit_monitor_type").val();
             if (monitor_type == 'TCP_CHECK') {
-                inputlist = {"connect_timeout": ["connect_timeout",'']} ;
+                inputlist = {"connect_timeout": ["Connect_timeout",'']} ;
             }
             else if (monitor_type == 'HTTP_GET') {
-                inputlist = {"path":["path",''],"digest":["digest",''],"connect_timeout":["connect_timeout",''],"nb_get_retry":["nb_get_retry",''],"delay_before_retry":["delay_before_retry",'']} ;
+                inputlist = {"path":["Path",''],"digest":["Digest",''],"connect_timeout":["Connect_timeout",''],"nb_get_retry":["Nb_get_retry",''],"delay_before_retry":["Delay_before_retry",'']} ;
             }
             else {
-                inputlist = {"misc_path":["eav script",''],"misc_timeout":["eav time out",'']} ;
+                inputlist = {"misc_path":["Eav script",''],"misc_timeout":["Eav time out",'']} ;
             } ; 
         _html = format_monitor_method_edit_input(inputlist)
         $("#edit_monitor_method").html(_html);
@@ -422,8 +427,8 @@
     function format_monitor_method_input(input_list){
         var html = ''
         for (i in input_list){
-            html += '<div><label for="' + i + '">' + 
-                input_list[i] + '</label> <div>' +
+            html += '<div class="control-group"><label class="control-label" for="' + i + '">' + 
+                input_list[i] + '</label> <div class="controls">' +
                 '<td><input class="monitor_method_input" id="' + i + '" type="text" name="' + 
                     i + '"></td></div></div>'
         }
@@ -433,8 +438,8 @@
     function format_monitor_method_edit_input(input_list){
         var html = ''
         for (i in input_list) {
-            html += '<div><label for="' + i + '">' + 
-                input_list[i][0] + '</label> <div>' +
+            html += '<div class="control-group"><label class="control-label" for="' + i + '">' + 
+                input_list[i][0] + '</label> <div class="controls">' +
                     '<td><input class="edit_monitor_method_input" id="' + i + '" type="text" name="' + i + '" value="' + input_list[i][1] + '"></td></div></div>'
         }
         return html
@@ -468,13 +473,13 @@
 
         var monitor_type = obj_monitor['type']
         if (monitor_type == 'TCP_CHECK'){
-            inputlist = {"connect_timeout":["connect_timeout",obj_monitor['connect_timeout']]};
+            inputlist = {"connect_timeout":["Connect_timeout",obj_monitor['connect_timeout']]};
         }
         else if (monitor_type == 'HTTP_GET'){
-            inputlist = {"path":["path",obj_monitor['path']],"digest":["digest",obj_monitor['digest']],"connect_timeout":["connect_timeout",obj_monitor['connect_timeout']],"nb_get_retry":["nb_get_retry",obj_monitor['nb_get_retry']],"delay_before_retry":["delay_before_retry",obj_monitor['delay_before_retry']]};
+            inputlist = {"path":["Path",obj_monitor['path']],"digest":["Digest",obj_monitor['digest']],"connect_timeout":["Connect_timeout",obj_monitor['connect_timeout']],"nb_get_retry":["Nb_get_retry",obj_monitor['nb_get_retry']],"delay_before_retry":["Delay_before_retry",obj_monitor['delay_before_retry']]};
         }
         else {
-            inputlist = {"eav_path":["eav_path",obj_monitor['misc_path']],"eav_timeout":["eav_timeout",obj_monitor['misc_timeout']]};
+            inputlist = {"misc_path":["Eav_path",obj_monitor['misc_path']],"misc_timeout":["Eav_timeout",obj_monitor['misc_timeout']]};
         }
 
     _html = format_monitor_method_edit_input(inputlist);
@@ -512,6 +517,9 @@
             },
         },
         close: function(){},
+        open: function (event, ui){
+            $(".ui-dialog-titlebar-close", $(this).parent()).hide();
+        },
     })
 
     $("#lvs_deploy_add_submit").click(function(){

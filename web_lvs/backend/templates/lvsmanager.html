@@ -26,8 +26,8 @@
     <td>{{ cluster.area }}</td>
     <td>{% for lb in cluster.lb %}
         {{ lb.id }}:{{ lb.ipadd }}:{{ lb.port }}{% endfor %}</td>
-    <td><a href="/lvsmanager_deploy/?id={{ cluster.id }}" class="btn btn-success"><span></span></span>configuration</a>
-    <a href="/lvsmanager_deploy_add/?id={{ cluster.id }}" class="btn btn-primary" ><span></span>new vip instance</a></td>
+    <td><a href="/lvsmanager_deploy/?id={{ cluster.id }}" class="btn btn-success"><span></span></span>Configuration</a>
+    <a href="/lvsmanager_deploy_add/?id={{ cluster.id }}" class="btn btn-primary" ><span></span>New Vip Instance</a></td>
 </tr>
 {% endfor %}
 {% endif %}

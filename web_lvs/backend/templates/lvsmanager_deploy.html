@@ -42,7 +42,7 @@
                       {{ vip.vip }}:{{ vip.port }}{% endfor %}</td>
                       <td>{{ vipinstance.protocol }}</td>
                       <td>{{ vipinstance.lb_algo }}</td>
-                      <td><a href="/lvsmanager_deploy_edit/?id={{ vipinstance._id }}" class='btn btn-sm btn-success'><span></span>EDIT</a>{% if vipinstance.status == "offline"%}<a href="javascript:;" onClick="javascript:online_vip_instance('{{ vipinstance._id }}','{{ vipinstance.vip_instance }}')" class='btn btn-sm btn-info'><span></span>online</a>{% else %}<a href="javascript:;" onClick="javascript:offline_vip_instance('{{ vipinstance._id }}','{{ vipinstance.vip_instance }}')" class='btn btn-sm btn-warning'><span></span>offline</a>{% endif %}<a href="javasrcipt:;" onClick="javascript:remove_vip_instance('{{ vipinstance._id }}','{{ vipinstance.vip_instance }}')" class='btn btn-sm btn-danger'><span></span>delete</a></td>
+                      <td><a href="/lvsmanager_deploy_edit/?id={{ vipinstance._id }}" class='btn btn-sm btn-success'><span></span>Edit</a>{% if vipinstance.status == "offline"%}<a href="javascript:;" onClick="javascript:online_vip_instance('{{ vipinstance._id }}','{{ vipinstance.vip_instance }}')" class='btn btn-sm btn-info'><span></span>Online</a>{% else %}<a href="javascript:;" onClick="javascript:offline_vip_instance('{{ vipinstance._id }}','{{ vipinstance.vip_instance }}')" class='btn btn-sm btn-warning'><span></span>Offline</a>{% endif %}<a href="javasrcipt:;" onClick="javascript:remove_vip_instance('{{ vipinstance._id }}','{{ vipinstance.vip_instance }}')" class='btn btn-sm btn-danger'><span></span>Delete</a></td>
                     </tr>
                   {% endfor %}
               </tbody>
