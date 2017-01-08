@@ -22,13 +22,13 @@ agent:
 
 cluster:
   -  id: stttt2003pk_lvs_cluster_zone1
-     area: 深圳
-     descript: 深圳集群
+     area: SZ
+     descript: SZ_Cluster
      agent: ['lvs_server_01', 'lvs_server_02']
      manager_user: ['test']
 
   -  id: stttt2003pk_lvs_cluster_zone2
-     area: 上海 
-     descript: 上海集群
+     area: SH 
+     descript: SH_cluster
      agent: ['lvs_server_03']
      manager_user: ['test']

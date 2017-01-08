@@ -3,17 +3,17 @@
 <div>
   <div>
     <div>
-        <ul>
-          <li><a href="/lvsmanager/">LVS Manager</a> <span></span></li>
-          <li><a href="/lvsmanager_deploy/?id={{ vipinstance.cluster_id }}">LVS Configuration</a> <span></span></li>
-          <li>Edit Vip Instance</li>
+        <ul class="nav nav-tabs">
+          <li><a href="/lvsmanager/">Lvs Cluster Manager</a> <span></span></li>
+          <li><a href="/lvsmanager_deploy/?id={{ vipinstance.cluster_id }}">Vip Instance Configuration</a> <span></span></li>
+          <li class="active"><a href="#">Edit Vip Instance</a></li>
         </ul>
     </div>
   </div>
 
   <div>
     <div id='lvsmanager_deploy_add_body'>
-        <h4>VIP</h4>
+        <h4>Edit Vip Instance(Instance Name:{{ vipinstance.vip_instance}} Cmdb_Id:{{ vipinstance._id }})</h4>
         <hr>
         <form>
             <div>

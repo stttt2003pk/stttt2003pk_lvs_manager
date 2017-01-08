@@ -3,23 +3,31 @@
 <div>
   <div>
     <div>
-        <ul>
-          <li><a href="/lvsmanager/">LVS Manager</a> <span></span></li>
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="/lvsmanager/">Lvs Cluster Manager</a> <span></span></li>
+          <li class="disabled"><a>Vip Instance Configuration</a> <span></span></li>
+          <li class="disabled"><a>Edit Vip Instance</a></li>
         </ul>
     </div>
   </div>
 {% if current_user is user_is_manager %} 
-{{ current_user }}
-<table id="lvsmanager_table">
+<table id="lvsmanager_table" class="table table-bordered table-hover">
+<tr>
+    <th style="width: 15%">Cluster_Id</th>
+    <th style="width: 15%">Description</th>
+    <th style="width: 10%">Idc_Area</th>
+    <th style="width: 10%">Load_Balancer_Server</th>
+    <th>Operation</th>
+</tr>
 {% for cluster in cluster_list %}
 <tr>
     <td>{{ cluster.id }}</td>
-    <!-- <td>{{ cluster.descript }}</td> -->
+    <td>{{ cluster.descript }}</td>
     <td>{{ cluster.area }}</td>
     <td>{% for lb in cluster.lb %}
         {{ lb.id }}:{{ lb.ipadd }}:{{ lb.port }}{% endfor %}</td>
-    <td><a href="/lvsmanager_deploy/?id={{ cluster.id }}" class="btn btn-success"><span></span></span>configuration</a></td>
-    <td><a href="/lvsmanager_deploy_add/?id={{ cluster.id }}" class="btn btn-primary" ><span></span>new vip instance</a></td>
+    <td><a href="/lvsmanager_deploy/?id={{ cluster.id }}" class="btn btn-success"><span></span></span>configuration</a>
+    <a href="/lvsmanager_deploy_add/?id={{ cluster.id }}" class="btn btn-primary" ><span></span>new vip instance</a></td>
 </tr>
 {% endfor %}
 {% endif %}

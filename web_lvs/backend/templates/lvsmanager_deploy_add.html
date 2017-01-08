@@ -1,59 +1,67 @@
 {% extends "index.html" %}
 {% block body %}
-
   <div>
-    <div id='lvsmanager_deploy_add_body'>
-        <h4>VIP</h4>
+    <div>
+        <ul class="nav nav-tabs">
+          <li><a href="/lvsmanager/">Lvs Cluster Manager</a> <span></span></li>
+          <li class="active"><a href="/lvsmanager_deploy/?id={{ cluster }}">Vip Instance Configuration</a> <span></span></li>
+          <li class="disabled"><a>Edit Vip Instance</a></li>
+        </ul>
+    </div>
+  </div>
+  <div>
+    <div id='lvsmanager_deploy_add_body' class='col-md-12'>
+        <h4>Vip Instance Configuration(Add New Vip Instance)</h4>
         <hr>
-        <form>
-            <div>
-              <label for="vipinstance">VIP Instance</label>
-              <div>
-                <td><input id="vip_instance" class="lvs_manager_deploy_add_vip_input" type="text" name='vip_instance' check-type="required"><span>VIP Instance must be uniq</span></td>
+        <form class="form-horizontal">
+            <div class="form-group">
+              <label for="vipinstance" class="col-sm-2 control-label">Vip Instance Name</label>
+              <div class="col-sm-10">
+                <td class="help-block"><input id="vip_instance" class="lvs_manager_deploy_add_vip_input" type="text" name='vip_instance' check-type="required"><span>Vip Instance must be uniq</span></td>
               </div>
             </div>
-            <div>
-              <label for="descript">service name</label>
-              <div>
+            <div class="form-group">
+              <label for="descript" class="col-sm-2 control-label">service name</label>
+              <div class="col-sm-10">
                 <td><input id="descript" class="lvs_manager_deploy_add_vip_input" type="text" name='descript' placeholder="service name"></td>
               </div>
             </div>
-            <div>
-              <label for="owners">person in charge</label>
-              <div>
+            <div class="form-group">
+              <label for="owners" class="col-sm-2 control-label">person in charge</label>
+              <div class="col-sm-10">
                 <td><input id="owners" class="lvs_manager_deploy_add_vip_input" type="text" name='owners' placeholder="person in charge"></td>
               </div>
             </div>
-            <div>
-              <label for="mailto">mail list warning</label>
-              <div>
+            <div class="form-group">
+              <label for="mailto" class="col-sm-2 control-label">mail list warning</label>
+              <div class="col-sm-10">
                 <td><input style="width: 310px;" id="mailto" class="lvs_manager_deploy_add_vip_input" type="text" name='mailto' placeholder="splite(',')"><span>mail list split by comma</span></td>
               </div>
             </div>
-            <div>
-              <label for="vip_group">VIP group</label>
-              <div>
+            <div class="form-group">
+              <label for="vip_group" class="col-sm-2 control-label">VIP group</label>
+              <div class="col-sm-10">
                 <td><input style="width: 310px;" id="vip_group" class="lvs_manager_deploy_add_vip_input" type="text" name='vip' placeholder="vip group address(split by comma)"><span>1.1.1.1:80,2.2.2.2:80</span></td>
               </div>
             </div>
-            <div>
-              <label for="protocol">protocol</label>
-              <div>
+            <div class="form-group">
+              <label for="protocol" class="col-sm-2 control-label">protocol</label>
+              <div class="col-sm-10">
                 <select id="protocol" class="lvs_manager_deploy_add_vip_input" name='protocol'>
                     <option value='TCP'>TCP</option>
                     <option value='UDP'>UDP</option>
                 </select>
               </div>
             </div>
-            <div>
-              <label for="delay_loop">monitor interval</label>
-              <div>
+            <div class="form-group">
+              <label for="delay_loop" class="col-sm-2 control-label">monitor interval</label>
+              <div class="col-sm-10">
                 <td><input style="width: 40px;" id="delay_loop" class="lvs_manager_deploy_add_vip_input" type="text" name='delay_loop' placeholder="interval" value="6"></td>
               </div>
             </div>
-            <div>
-              <label for="lb_algo">balance method</label>
-              <div>
+            <div class="form-group">
+              <label for="lb_algo" class="col-sm-2 control-label">balance method</label>
+              <div class="col-sm-10">
                 <select id="lb_algo" class="lvs_manager_deploy_add_vip_input" name='lb_algo'>
                     <option value='wrr'>wrr</option>
                     <option value='rr'>rr</option>
@@ -65,9 +73,9 @@
                 </select>
               </div>
             </div>
-            <div>
-              <label for="lb_kind">lvs type</label>
-              <div>
+            <div class="form-group">
+              <label for="lb_kind" class="col-sm-2 control-label">lvs type</label>
+              <div class="col-sm-10">
                 <select id="lb_kind" class="lvs_manager_deploy_add_vip_input" name='lb_kind'>
                     <option value='FNAT'>FNAT</option>
                     <option value='DR'>DR</option>
@@ -76,64 +84,66 @@
                 </select>
               </div>
             </div>
-            <div>
-              <label for="persistence_timeout">persistence timeout</label>
-              <div>
+            <div class="form-group">
+              <label for="persistence_timeout" class="col-sm-2 control-label">persistence timeout</label>
+              <div class="col-sm-10">
                 <td><input style="width: 40px;" id="persistence_timeout" class="lvs_manager_deploy_add_vip_input" type="text" name='persistence_timeout' placeholder="persistence timeout" value='0' ></td>
               </div>
             </div>
-            <div>
-              <label for="sync_proxy">syn flood defence</label>
-              <div>
+            <div class="form-group">
+              <label for="sync_proxy" class="col-sm-2 control-label">syn flood defence</label>
+              <div class="col-sm-10">
                 <td><input id="sync_proxy" class="lvs_manager_deploy_add_vip_checkbox" name='sync_proxy' type='checkbox' value='True' checked="true"></td>
               </div>
             </div>
-            <div>
-              <label for="alpha">alpha</label>
-              <div>
+            <div class="form-group">
+              <label for="alpha" class="col-sm-2 control-label">alpha</label>
+              <div class="col-sm-10">
                 <td><input id="alpha" class="lvs_manager_deploy_add_vip_checkbox" name='alpha' type='checkbox' value='True' checked="true"><span>是否开启alpha模式,启动时默认rs是down状态，健康检查通过后才添加到lvs pool</span></td>
               </div>
             </div>
-            <div>
-              <label for="omega">omega</label>
-              <div>
+            <div class="form-group">
+              <label for="omega" class="col-sm-2 control-label">omega</label>
+              <div class="col-sm-10">
                 <td><input id="omega" class="lvs_manager_deploy_add_vip_checkbox" name='omega' type='checkbox' value='True' checked="true"><span>是否开启omega模式，清楚rs时会执行相应的脚本(quorum_up)</span></td>
               </div>
             </div>
-            <div>
-              <label for="quorum">quorum</label>
-              <div>
+            <div class="form-group">
+              <label for="quorum" class="col-sm-2 control-label">quorum</label>
+              <div class="col-sm-10">
                 <td><input style="width: 40px;" id="quorum" type="text" name='quorum' value='1' ><span>service limit</span></td>
               </div>
             </div>
-            <div>
-              <label for="hysteresis">hysteresis</label>
-              <div>
+            <div class="form-group">
+              <label for="hysteresis" class="col-sm-2 control-label">hysteresis</label>
+              <div class="col-sm-10">
                 <td><input style="width: 40px;" id="hysteresis" type="text" name='hysteresis' value='0'><span>delay factor</span></td>
               </div>
             </div>
         </form>
         </br>
-        <h4>RealServer group</h4>
+        <h4 class="col-sm-2">RealServer group</h4>
+        </b>
         <hr>
-        <button id="rs_add"><span></span>add real server</button>
-        <table>
+        <button id="rs_add" class="btn btn-success" style="position: relative;left: 20px;"><span></span>add real server</button>
+        <hr>
+        <table class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <th style="width: 10%">server manage IP</th>
-                  <th style="width: 10%">service IP</th>
-                  <th style="width: 10%">weight</th>
-                  <th style="width: 40%">port list</th>
-                  <th style="width: 10%">monitor</th>
-                  <th>ops</th>
+                  <th style="width: 15%">Server Manage IP</th>
+                  <th style="width: 10%">Service IP</th>
+                  <th style="width: 10%">Weight</th>
+                  <th style="width: 40%">Port List</th>
+                  <th style="width: 10%">onitor</th>
+                  <th>Operation</th>
                 </tr>
               </thead>
               <tbody id='rs_table_body'>
               </tbody>
         </table>
         <hr>
-        <button style="position: relative;left: 800px;" id="lvs_deploy_add_submit" ><span></span>submit</button>
-        <a href="/lvsmanager_deploy/?id={{ cluster }}" style="position: relative;left: 800px;"><span></span>back</a>
+        <button style="position: relative;left: 20px;" id="lvs_deploy_add_submit" class="btn btn-danger"><span></span>submit</button>
+        <a href="/lvsmanager_deploy/?id={{ cluster }}" style="position: relative;left: 20px;" class="btn btn-primary"><span></span>back</a>
     </div>
   </div>
 
@@ -255,6 +265,9 @@
         },   
         
         close: function(){},
+        open: function (event, ui){
+            $(".ui-dialog-titlebar-close", $(this).parent()).hide();
+        },
 
     });
 

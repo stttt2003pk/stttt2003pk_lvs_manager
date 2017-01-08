@@ -3,31 +3,33 @@
 <div>
   <div>
     <div>
-        <ul>
-          <li><a href="/lvsmanager/">LVS Manager</a> <span></span></li>
+        <ul class="nav nav-tabs">
+          <li><a href="/lvsmanager/">Lvs Cluster Manager</a> <span></span></li>
+          <li class="active"><a href="#">Vip Instance Configuration</a> <span></span></li>
+          <li class="disabled"><a>Edit Vip Instance</a></li>
         </ul>
     </div>
   </div>
         <div>
             <h4>cluster_id:{{ cluster }}</h4>
             <hr>
-            <a href="/lvsmanager_deploy_add/?id={{ cluster }}"><span></span>deploy new vip instance</a>
+            <a href="/lvsmanager_deploy_add/?id={{ cluster }}" class="btn btn-success"><span></span>Add New Vip Instance</a>
         </div>
         </br>
 
         <div>
         {{ vipinstanceinfo }}
         {% if vipinstanceinfo %}
-            <table id="lvsmanager_table">
+            <table id="lvsmanager_table" class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <th style="width: 10%">VIP Instance</th>
-                  <th style="width: 10%">service</th>
-                  <th style="width: 10%">owner</th>
-                  <th style="width: 10%">VIP group</th>
-                  <th style="width: 10%">protocol</th>
-                  <th style="width: 10%">lb_method</th>
-                  <th style="width: 40%">operation</th>
+                  <th style="width: 14%">Vip Instance(name)</th>
+                  <th style="width: 8%">Service</th>
+                  <th style="width: 8%">Owner</th>
+                  <th style="width: 10%">Vip Group</th>
+                  <th style="width: 10%">Protocol</th>
+                  <th style="width: 10%">Lb_Method</th>
+                  <th style="width: 40%">Operation</th>
                 </tr>
               </thead>
               <tbody id='publish_table_body'>
