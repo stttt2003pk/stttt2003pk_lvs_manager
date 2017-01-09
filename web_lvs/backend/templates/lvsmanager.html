@@ -27,10 +27,58 @@
     <td>{% for lb in cluster.lb %}
         {{ lb.id }}:{{ lb.ipadd }}:{{ lb.port }}{% endfor %}</td>
     <td><a href="/lvsmanager_deploy/?id={{ cluster.id }}" class="btn btn-success"><span></span></span>Configuration</a>
-    <a href="/lvsmanager_deploy_add/?id={{ cluster.id }}" class="btn btn-primary" ><span></span>New Vip Instance</a></td>
+    <!--<a href="/lvsmanager_deploy_add/?id={{ cluster.id }}" class="btn btn-primary" ><span></span>New Vip Instance</a>-->
+    <a href="#" onCLick="lvsmanagerpublish('{{ cluster.id }}')" class='btn btn-warning' style="position: relative;left: 5px;"><span></span>Publish</a></td>
 </tr>
 {% endfor %}
 {% endif %}
 
 </div>
+<script type="text/javascript">
+    function lvsmanagerpublish(id){
+        bootbox.prompt("Please Insert The Publish Message", function(result){
+            if(result){
+                var post_data = {
+                    "id": id,
+                    "mess": result,
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/lvsmanager_publish/',
+                    cache: false,
+                    data: post_data,
+                    success: function(data){
+                        var data_str = '<pre>Publish Result:\n' +data + '</pre>'
+                        bootbox.alert(data_str, function(){
+                            //window.location.href="/lvsmanager_keepalived_reload/?id=" + id
+                        })
+                    }
+                })
+            }
+        }) 
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 {% endblock %}

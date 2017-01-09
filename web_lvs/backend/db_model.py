@@ -38,7 +38,7 @@ class DB_Model():
 
     def getLvsManagerConfigVipInstanceList(self, id):
         result = self.db['LvsManagerConfig'].find({"cluster_id" : id})
-        return result 
+        return list(result) 
 
     def getLvsManagerConfigVipInstanceInfo(self, id):
         result = self.db['LvsManagerConfig'].find_one({"_id" : ObjectId(id)})
@@ -56,6 +56,16 @@ class DB_Model():
     def DelLvsManagerConfigVipInstance(self, id):
         result = self.db['LvsManagerConfig'].remove({"_id": ObjectId(id)})
 
+    def getLvsManagerPublishLastRev(self, id):
+        result = self.db['LvsManagerPublish'].find({"cluster_id": id}).sort("time", -1)
+        if result.count() != 0:
+            return list(result)[0]
+        else:
+            return False
+
+    def insertLvsManagerPublish(self, data):
+        result = self.db['LvsManagerPublish'].insert(data)
+        return str(result)
 
 ####test DB_Model
 #handler = DB_Model('test account')

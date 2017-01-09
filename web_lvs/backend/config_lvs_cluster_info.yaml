@@ -26,9 +26,11 @@ cluster:
      descript: SZ_Cluster
      agent: ['lvs_server_01', 'lvs_server_02']
      manager_user: ['test']
+     admin_mail_group: ['414150392@qq.com','huangchang@gzsunrun.cn']
 
   -  id: stttt2003pk_lvs_cluster_zone2
      area: SH 
      descript: SH_cluster
      agent: ['lvs_server_03']
      manager_user: ['test']
+     admin_mail_group: ['414150392@qq.com','huangchang@gzsunrun.cn']

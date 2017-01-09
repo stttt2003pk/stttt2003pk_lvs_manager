@@ -36,6 +36,8 @@ class Application(tornado.web.Application):
             (r"/lvsmanager_deploy_offline/", control.LvsManagerDeployOffline),
             (r"/lvsmanager_deploy_online/", control.LvsManagerDeployOnline),
             (r"/lvsmanager_deploy_delete/", control.LvsManagerDeployDel),
+
+            (r"/lvsmanager_publish/", control.LvsManagerPublish)
 		]
 
 		handlers = web_path

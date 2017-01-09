@@ -29,6 +29,7 @@ import logging
 from tornado.log import access_log, app_log, gen_log
 
 import yaml
+import codecs
 
 ####real server alived html
 def rs_is_lived(weight):
@@ -403,6 +404,92 @@ class LvsManagerDeployDel(BaseHandler):
         handler = DB_Model('LvsManagerConfig')
         handler.DelLvsManagerConfigVipInstance(id)
         self.write('ok')
+
+#get the config from the yaml config file
+def search_cluster(id):
+    config = yaml.load(open(options.config))
+    cluster_list = config['cluster']
+    for i in cluster_list:
+        if id == i['id']:
+            return i
+    return None
+
+#publish via saltstack api
+class LvsManagerPublish(BaseHandler):
+    @tornado.web.authenticated
+
+    def post(self):
+        time_now = time.time()
+        cluster_id = self.get_argument("id", None)
+        mess = self.get_argument("mess", None)
+        #self.write(cluster_id + ' ' + mess)
+        
+        area = search_cluster(cluster_id)['area']
+        admin_mail_group = search_cluster(cluster_id)['admin_mail_group']
+
+        handler = DB_Model('LvsManagerConfig')
+        vipinstancelist = handler.getLvsManagerConfigVipInstanceList(cluster_id)
+        _vipinstancelist = handler.getLvsManagerConfigVipInstanceList(cluster_id)
+
+        for i in _vipinstancelist:
+            i['_id'] = str(i['_id'])
+
+        if len(vipinstancelist) == 0:
+            self.write('This ' + cluster_id + ' has no vip instance configuration in the CMDB')
+        else:
+            #else get the lastest publish id
+            handler = DB_Model('LvsManagerPublish')
+            last_rev = handler.getLvsManagerPublishLastRev(cluster_id)
+            if last_rev:
+                rev = last_rev['rev'] + 1
+            else:
+                rev = 1
+
+            #insert the lvsmanagerpublish result to the cmdb
+            lvsmanagerpublish = {
+                                    "time": time_now,
+                                    "message": mess,
+                                    "cluster_id": cluster_id,
+                                    "rev": rev,
+                                    "server": _vipinstancelist,
+                                    "area": area,
+                                    "admin_mail_group": admin_mail_group,
+                                }
+            new_publish_id = handler.insertLvsManagerPublish(lvsmanagerpublish)
+
+            #dump the publish information to YAML
+            context = yaml.dump(lvsmanagerpublish)
+
+            #jinja render to create keepalived config
+            keepalived_config = self.template('keepalived.tpl', vip_instance_list = vipinstancelist, cluster_id=cluster_id)            
+            publishdir = options.publishdir
+            keepalived_config_file = os.path.join(publishdir,new_publish_id)
+
+            #create the config file
+            f = codecs.open(keepalived_config_file, 'w+', 'utf-8')
+            f.write(keepalived_config)
+            f.close()
+            
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ####saltstackwork
 class saltstackwork():

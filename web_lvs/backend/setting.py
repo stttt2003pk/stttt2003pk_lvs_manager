@@ -27,3 +27,6 @@ lvs_url_port = 'http://' + domain_name + ':' + str(port) + '/'
 define("lvs_url", default=lvs_url_port, help="lvs_url_port")
 
 define("config", default=os.path.join(cur_dir,"./","config_lvs_cluster_info.yaml"), help="config.yaml file")
+
+#publish
+define("publishdir", default=os.path.join(cur_dir,"keepalived_publish"), help="lvspublish dir")
