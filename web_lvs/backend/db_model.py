@@ -67,6 +67,10 @@ class DB_Model():
         result = self.db['LvsManagerPublish'].insert(data)
         return str(result)
 
+    def updateLvsManagerPublishResult(self, id, publishresult):
+        self.db['LvsManagerPublish'].update({"_id": ObjectId(id)},{"$set": { "publish_result" : publishresult }})
+        return True
+
 ####test DB_Model
 #handler = DB_Model('test account')
 #print handler.getAccountOne('admin')

@@ -480,10 +480,25 @@ class LvsManagerPublish(BaseHandler):
             #transfer
             runsalt = saltstackwork()
             result = runsalt.run_publish_keepalived(tgt, source_file, dst_file)
-            self.write(result) 
 
             #dump the publish information and transfer to the minion
+            info_source_file = 'info.yaml'
+            info_dst_file = '/etc/keepalived/info.yaml'
+            result2 = runsalt.run_cp_file(tgt, info_source_file, info_dst_file, context)
+            ret_html = ''
+            ret_result = True
+            for lb in tgt:
+                if result.has_key(lb) and result2.has_key(lb):
+                    ret_html += '%s ok\n' %(lb)
+                else:
+                    ret_html += '%s failed\n' %(lb)
+                    ret_result = True
+
+            handler.updateLvsManagerPublishResult(new_publish_id, ret_result)
             print result
+            print result2
+            self.write(ret_html)
+            #print ret_html
 
 
 
