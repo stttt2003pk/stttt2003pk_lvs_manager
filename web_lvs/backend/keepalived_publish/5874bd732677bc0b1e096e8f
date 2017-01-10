@@ -1,0 +1,661 @@
+global_defs {
+    router_id stttt2003pk_lvs_cluster_zone1
+}
+
+
+
+virtual_server_group ttttttttt {
+    
+    1.1.1.1 80 #b
+    
+    2.2.2.2 80 #b
+    
+}
+
+virtual_server group ttttttttt {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1.1.1.1/32 dev lo ;ip addr add 2.2.2.2/32 dev lo ;"
+    
+
+    
+        
+}
+
+
+
+virtual_server_group ewweweeeeeeeee {
+    
+    1.1.1.1 80 #
+    
+    2.2.2.2 80 #
+    
+}
+
+virtual_server group ewweweeeeeeeee {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1.1.1.1/32 dev lo ;ip addr add 2.2.2.2/32 dev lo ;"
+    
+
+    
+        
+}
+
+
+
+virtual_server_group testtttttt {
+    
+    1.1.1.1 80 #
+    
+    2.2.2.2 80 #
+    
+}
+
+virtual_server group testtttttt {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1.1.1.1/32 dev lo ;ip addr add 2.2.2.2/32 dev lo ;"
+    
+
+    
+        
+}
+
+
+
+virtual_server_group qq {
+    
+    1.1.1.1 80 #eee
+    
+    2.2.2.2 80 #eee
+    
+}
+
+virtual_server group qq {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1.1.1.1/32 dev lo ;ip addr add 2.2.2.2/32 dev lo ;"
+    
+
+    
+        
+}
+
+
+
+virtual_server_group a {
+    
+    1.1.1.1 80 #ffff
+    
+    2.2.2.2 80 #ffff
+    
+}
+
+virtual_server group a {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1.1.1.1/32 dev lo ;ip addr add 2.2.2.2/32 dev lo ;"
+    
+
+    
+        
+}
+
+
+
+virtual_server_group a {
+    
+    1 90 #b
+    
+    2 99 #b
+    
+}
+
+virtual_server group a {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1/32 dev lo ;ip addr add 2/32 dev lo ;"
+    
+
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+}
+
+
+
+virtual_server_group ccccc {
+    
+    1 90 #b
+    
+    2 99 #b
+    
+}
+
+virtual_server group ccccc {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1/32 dev lo ;ip addr add 2/32 dev lo ;"
+    
+
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+}
+
+
+
+virtual_server_group adfadsfasdfasdf {
+    
+    1 90 #b
+    
+    2 99 #b
+    
+}
+
+virtual_server group adfadsfasdfasdf {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1/32 dev lo ;ip addr add 2/32 dev lo ;"
+    
+
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+}
+
+
+
+virtual_server_group dddddd {
+    
+    1 90 #b
+    
+    2 99 #b
+    
+}
+
+virtual_server group dddddd {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1/32 dev lo ;ip addr add 2/32 dev lo ;"
+    
+
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+}
+
+
+
+virtual_server_group bbbbbbbb {
+    
+    1 90 #b
+    
+    2 99 #b
+    
+}
+
+virtual_server group bbbbbbbb {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1/32 dev lo ;ip addr add 2/32 dev lo ;"
+    
+
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+        real_server b d {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path e
+                    digest f
+                }
+                connect_timeout g
+                nb_get_retry h
+                delay_before_retry i
+                connect_port d
+            }
+            
+        }
+        
+    
+        
+}
+
+
+
+virtual_server_group a {
+    
+    1.1.1.1 80 #b
+    
+    2.2.2.2 80 #b
+    
+}
+
+virtual_server group a {
+    delay_loop 6
+    lb_algo wrr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 1.1.1.1/32 dev lo ;ip addr add 2.2.2.2/32 dev lo ;"
+    
+
+    
+        
+        real_server b 99 {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path a
+                    digest b
+                }
+                connect_timeout c
+                nb_get_retry df
+                delay_before_retry e
+                connect_port 99
+            }
+            
+        }
+        
+        real_server b 999 {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path a
+                    digest b
+                }
+                connect_timeout c
+                nb_get_retry df
+                delay_before_retry e
+                connect_port 999
+            }
+            
+        }
+        
+        real_server b 9999 {
+            weight c
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path a
+                    digest b
+                }
+                connect_timeout c
+                nb_get_retry df
+                delay_before_retry e
+                connect_port 9999
+            }
+            
+        }
+        
+    
+        
+}
+

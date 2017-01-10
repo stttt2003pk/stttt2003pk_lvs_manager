@@ -1,0 +1,100 @@
+global_defs {
+    router_id stttt2003pk_lvs_cluster_zone1
+}
+
+
+
+virtual_server_group vip1_test {
+    
+    192.168.100.91 80 #vip1_test
+    
+    192.168.100.92 80 #vip1_test
+    
+}
+
+virtual_server group vip1_test {
+    delay_loop 5
+    lb_algo rr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 30
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 192.168.100.91/32 dev lo ;ip addr add 192.168.100.92/32 dev lo ;"
+    
+
+    
+        
+        real_server 192.168.100.167 80 {
+            weight 10
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path http://lvs.stttt2003pk.com/test_keepalived.html
+                    digest success
+                }
+                connect_timeout 16
+                nb_get_retry 3
+                delay_before_retry 5
+                connect_port 80
+            }
+            
+        }
+        
+    
+        
+}
+
+
+
+virtual_server_group vip2_test {
+    
+    192.168.100.91 8080 #vip2_test
+    
+    192.168.100.92 8080 #vip2_test
+    
+}
+
+virtual_server group vip2_test {
+    delay_loop 6
+    lb_algo rr
+    lb_kind FNAT
+    protocol TCP
+    persistence_timeout 0
+    
+    laddr_group_name laddr_g1
+    
+    
+    quorum 
+    hysteresis 
+    quorum_up "ip addr add 192.168.100.91/32 dev lo ;ip addr add 192.168.100.92/32 dev lo ;"
+    
+
+    
+        
+        real_server 192.168.100.167 8888 {
+            weight 10
+            inhibit_on_failure
+            
+            HTTP_GET {
+                url {
+                    path http://lvs.stttt2003pk.com:8888/static/test_keepalived.html
+                    digest success
+                }
+                connect_timeout 16
+                nb_get_retry 3
+                delay_before_retry 5
+                connect_port 8888
+            }
+            
+        }
+        
+    
+        
+}
+
