@@ -2,35 +2,35 @@
 ---
 
 agent:
-  -  id: lvs_server_01
-     ipadd: 192.168.204.117
-     cluster: stttt2003pk_lvs_cluster_zone1
-     area: SZ
-     port: 61777
+  - id: csserver3.stttt2003pk.com
+    ipadd: 192.168.204.239
+    cluster: stttt2003pk_lvs_cluster_zone1
+    area: SZ
+    port: 61777
 
-  -  id: lvs_server_02
-     ipadd: 192.168.204.118
-     cluster: stttt2003pk_lvs_cluster_zone1
-     area: SZ
-     port: 61777
+  - id: csserver1.stttt2003pk.com
+    ipadd: 192.168.204.118
+    cluster: stttt2003pk_lvs_cluster_zone1
+    area: SZ
+    port: 61777
 
-  -  id: lvs_server_03
-     ipadd: 192.168.204.119
-     cluster: stttt2003pk_lvs_cluster_zone2
-     area: SH
-     port: 61777
+  - id: csserver2.stttt2003pk.com
+    ipadd: 192.168.204.119
+    cluster: stttt2003pk_lvs_cluster_zone2
+    area: SH
+    port: 61777
 
 cluster:
-  -  id: stttt2003pk_lvs_cluster_zone1
-     area: SZ
-     descript: SZ_Cluster
-     agent: ['lvs_server_01', 'lvs_server_02']
-     manager_user: ['test']
-     admin_mail_group: ['414150392@qq.com','huangchang@gzsunrun.cn']
+  - id: stttt2003pk_lvs_cluster_zone1
+    area: SZ
+    descript: SZ_Cluster
+    agent: ['csserver1.stttt2003pk.com', 'csserver3.stttt2003pk.com']
+    manager_user: ['test']
+    admin_mail_group: ['414150392@qq.com','huangchang@gzsunrun.cn']
 
-  -  id: stttt2003pk_lvs_cluster_zone2
-     area: SH 
-     descript: SH_cluster
-     agent: ['lvs_server_03']
-     manager_user: ['test']
-     admin_mail_group: ['414150392@qq.com','huangchang@gzsunrun.cn']
+  - id: stttt2003pk_lvs_cluster_zone2
+    area: SH 
+    descript: SH_cluster
+    agent: ['csserver2.stttt2003pk.com']
+    manager_user: ['test']
+    admin_mail_group: ['414150392@qq.com','huangchang@gzsunrun.cn']

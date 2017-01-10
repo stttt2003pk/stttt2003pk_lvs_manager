@@ -470,8 +470,20 @@ class LvsManagerPublish(BaseHandler):
             f.write(keepalived_config)
             f.close()
             
+            #transfer the configuration to the minion
+            #Get the minion
+            config = yaml.load(open(options.config))
+            tgt = search_cluster(cluster_id)['agent']
+            source_file = keepalived_config_file
+            dst_file = '/etc/keepalived/keepalived.conf'
 
-        
+            #transfer
+            runsalt = saltstackwork()
+            result = runsalt.run_publish_keepalived(tgt, source_file, dst_file)
+            self.write(result) 
+
+            #dump the publish information and transfer to the minion
+            print result
 
 
 
@@ -495,7 +507,7 @@ class LvsManagerPublish(BaseHandler):
 class saltstackwork():
 	
 	def __init__(self):
-		import salt
+		import salt.client
 		self.local = salt.client.LocalClient()
 
 	def run_publish_keepalived(self,tgt,source_file,dst_file):

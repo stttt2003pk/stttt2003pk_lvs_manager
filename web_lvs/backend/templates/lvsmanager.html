@@ -48,6 +48,7 @@
                     cache: false,
                     data: post_data,
                     success: function(data){
+                        console.log(data)
                         var data_str = '<pre>Publish Result:\n' +data + '</pre>'
                         bootbox.alert(data_str, function(){
                             //window.location.href="/lvsmanager_keepalived_reload/?id=" + id
