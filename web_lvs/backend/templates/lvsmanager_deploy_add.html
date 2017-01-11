@@ -99,13 +99,13 @@
             <div class="form-group">
               <label for="alpha" class="col-sm-2 control-label">Alpha</label>
               <div class="col-sm-10">
-                <td><input id="alpha" class="lvs_manager_deploy_add_vip_checkbox" name='alpha' type='checkbox' value='True' checked="true"><span>是否开启alpha模式,启动时默认rs是down状态，健康检查通过后才添加到lvs pool</span></td>
+                <td><input id="alpha" class="lvs_manager_deploy_add_vip_checkbox" name='alpha' type='checkbox' value='True' checked="true"><span>if quorum is set the activing monitor pass it will run the quoruo script to add the vip</span></td>
               </div>
             </div>
             <div class="form-group">
               <label for="omega" class="col-sm-2 control-label">Omega</label>
               <div class="col-sm-10">
-                <td><input id="omega" class="lvs_manager_deploy_add_vip_checkbox" name='omega' type='checkbox' value='True' checked="true"><span>是否开启omega模式，清楚rs时会执行相应的脚本(quorum_up)</span></td>
+                <td><input id="omega" class="lvs_manager_deploy_add_vip_checkbox" name='omega' type='checkbox' value='True' checked="true"><span>if omega is set,it will run the quorum down script to remove the vip</span></td>
               </div>
             </div>
             <div class="form-group">
@@ -332,8 +332,9 @@
 
         $(".lvs_manager_deploy_add_vip_checkbox").each(function(){
             var key = $(this).attr('id');
-            var value = $(this).val();
-            if (value == 'checkd'){
+            var value = $(this).prop('checked');
+            console.log(value)
+            if (value == true){
                 var _value = true;
             } else {
                 var _value = false;

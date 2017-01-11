@@ -98,19 +98,19 @@
             <div class="form-group">
               <label for="sync_proxy" class="col-sm-2 control-label">Syn Flood Defence</label>
               <div class="col-sm-10">
-                <td><input id="sync_proxy" class="lvs_manager_deploy_add_vip_checkbox " name='sync_proxy' type='checkbox' value='True' {% if vipinstance.sync_proxy %}checked="true"{% endif %}></td>
+                <td><input id="sync_proxy" class="lvs_manager_deploy_add_vip_checkbox" name='sync_proxy' type='checkbox' value='True' {% if vipinstance.sync_proxy %}checked="true"{% endif %}></td>
               </div>
             </div>
             <div class="form-group">
               <label for="alpha" class="col-sm-2 control-label">Alpha</label>
               <div class="col-sm-10">
-                <td><input id="alpha" class="lvs_manager_deploy_add_vip_checkbox "  name='alpha' type='checkbox' value='True' {% if vipinstance.alpha %}checked="true"{% endif %}><span>是否开启alpha模式,启动时默认rs是down状态，健康检查通过后才添加到lvs pool</span></td>
+                <td><input id="alpha" class="lvs_manager_deploy_add_vip_checkbox"  name='alpha' type='checkbox' value='True' {% if vipinstance.alpha %}checked="true"{% endif %}><span>if quorum is set the activing monitor pass it will run the quoruo script to add the vip</span></td>
               </div>
             </div>
             <div class="form-group">
               <label for="omega" class="col-sm-2 control-label">Omega</label>
               <div class="col-sm-10">
-                <td><input id="omega" class="lvs_manager_deploy_add_vip_checkbox " name='omega' type='checkbox' value='True' {% if vipinstance.omega %}checked="true"{% endif %}><span>是否开启omega模式，清楚rs时会执行相应的脚本(quorum_up)</span></td>
+                <td><input id="omega" class="lvs_manager_deploy_add_vip_checkbox" name='omega' type='checkbox' value='True' {% if vipinstance.omega %}checked="true"{% endif %}><span>if omega is set,it will run the quorum down script to remove the vip</span></td>
               </div>
             </div>
             <div class="form-group">
@@ -150,7 +150,7 @@
                 <td>{{ rs.weight }}</td>
                 <td>{{ rs.port }}</td>
                 <td>{{ rs.monitor.type }}</td>
-                <td><a style="position: relative;left: 10px;" href="javascript:rs_edit({{ rs.i }})" ><span></span>edit</a></td>
+                <td><a style="position: relative;left: 10px;" href="javascript:rs_edit({{ rs.i }})" ><span></span>edit</a></td
               </tr>
               {% endfor %}-->
               </tbody>
@@ -535,8 +535,9 @@
                 })
                 $(".lvs_manager_deploy_add_vip_checkbox").each(function(){
                     var key = $(this).attr('id');
-                    var value = $(this).attr('checked');
-                    if(value == 'checked'){
+                    var value = $(this).prop('checked');
+                    //console.log(value)
+                    if(value == true){
                         var _value = true;
                     }
                     else {

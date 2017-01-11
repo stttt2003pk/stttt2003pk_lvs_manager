@@ -12,6 +12,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+web_lvs/backend/keepalived_publish/
 .Python
 env/
 build/

@@ -22,9 +22,9 @@ virtual_server group {{ vipinstance.vip_instance }} {
     {% if vipinstance.omega %}omega{% endif %}
     quorum {{ vipinstance.quorum }}
     hysteresis {{ vipinstance.hysteresis }}
-    quorum_up "{% for vip in vipinstance.vip_group %}ip addr add {{ vip.vip }}/32 dev lo ;{% endfor %}"
+    quorum_up "{% for vip in vipinstance.vip_group %}ip addr add {{ vip.vip }}/32 dev lo;{% endfor %}"
     {% if vipinstance.omega %}
-    quorum_down "{% for vip in vipinstance.vip_group %}ip addr del {{ vip.vip }}/32 dev lo ;{% endfor %}"
+    quorum_down "{% for vip in vipinstance.vip_group %}ip addr del {{ vip.vip }}/32 dev lo;{% endfor %}"
     {% endif %}
 
     {% for rs in vipinstance.rs %}
