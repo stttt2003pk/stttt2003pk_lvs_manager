@@ -492,7 +492,7 @@ class LvsManagerPublish(BaseHandler):
                     ret_html += '%s ok\n' %(lb)
                 else:
                     ret_html += '%s failed\n' %(lb)
-                    ret_result = True
+                    ret_result = False
 
             handler.updateLvsManagerPublishResult(new_publish_id, ret_result)
             print result
