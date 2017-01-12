@@ -44,11 +44,19 @@
   </div>
 
   <div>
-    <a>123</a>
+    <ol id="lvsmanager_keepalived_reload_select">
+        {% for lb in cluster.lb %}
+        <li class="ui-widget-content">{{ lb.id }}/{{ lb.ipadd }}</li>
+        {% endfor %}
+    </ol>
+
   </div>
 
 <script type="text/javascript">
     //$("#lvsmanager_keepalived_reload_select").selectpicker({style: 'btn-info', menuStyle: 'dropdown-inverse'});
+    $(function(){
+        $("#lvsmanager_keepalived_reload_select").selectable();
+    });
 </script>
 
 {% endblock %}
