@@ -1,0 +1,54 @@
+{% extends "index.html" %}
+{% block body %}
+
+  <div>
+    <div>
+        <ul class="nav nav-tabs">
+          <li><a href="/lvsmanager/">Lvs Cluster Manager</a><span></span></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                Keepalived Operation Using Salt <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="active"><a href="/lvsmanager_keepalived_reload/?id={{ cluster.id }}">Keepalived Reload</a></li>
+                <li><a href="/lvsmanager_keepalived_start_or_stop/?id={{ cluster.id }}">Keepalived Start/Stop</a></li>
+                <li><a href="/lvsmanager_keepalived_ipvsadm/?id={{ cluster.id }}">Get Ipvsadmin Stats</a></li>
+            </ul>
+          </li>
+        </ul>
+    </div>
+  </div>
+  </br>
+
+  <h4>{{ cluster.id }}</h4>
+  <div>
+    {% if current_user is user_is_manager %} 
+    <table id="lvsmanager_table" class="table table-bordered table-hover">
+    <tr>
+        <th style="width: 15%">Cluster_Id</th>
+        <th style="width: 15%">Description</th>
+        <th style="width: 10%">Idc_Area</th>
+        <th style="width: 10%">Load_Balancer_Server</th>
+    </tr>
+    {% if cluster %}
+    <tr>
+        <td>{{ cluster.id }}</td>
+        <td>{{ cluster.descript }}</td>
+        <td>{{ cluster.area }}</td>
+        <td>{% for lb in cluster.lb %}
+            {{ lb.id }}:{{ lb.ipadd }}:{{ lb.port }}{% endfor %}</td>
+    </tr>
+    {% endif %}
+    </table>
+    {% endif %}
+  </div>
+
+  <div>
+    <a>123</a>
+  </div>
+
+<script type="text/javascript">
+    //$("#lvsmanager_keepalived_reload_select").selectpicker({style: 'btn-info', menuStyle: 'dropdown-inverse'});
+</script>
+
+{% endblock %}

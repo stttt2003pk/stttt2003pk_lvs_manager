@@ -500,6 +500,29 @@ class LvsManagerPublish(BaseHandler):
             self.write(ret_html)
             #print ret_html
 
+#keepalived reload handler
+class LvsManagerKeepalivedReload(BaseHandler):
+    @tornado.web.authenticated
+    
+    def get(self):
+
+        cluster_id = self.get_argument('id', None)
+        cluster = search_cluster(cluster_id)
+        cluster['lb'] = []
+        
+        lb_list = []
+        for lb in cluster['agent']:
+            if search_agent(lb) != None:
+                lb_list.append({
+                                'id': search_agent(lb)['id'],
+                                'ipadd': search_agent(lb)['ipadd'],
+                                'port': search_agent(lb)['port'],
+                                })
+        cluster['lb'] = lb_list
+                
+
+        self.render2('lvsmanager_keepalived_reload.html', cluster = cluster) 
+
 
 
 
