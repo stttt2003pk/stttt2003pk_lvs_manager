@@ -520,8 +520,21 @@ class LvsManagerKeepalivedReload(BaseHandler):
                                 })
         cluster['lb'] = lb_list
                 
-
         self.render2('lvsmanager_keepalived_reload.html', cluster = cluster) 
+        
+    def post(self):
+
+        data = json.loads(self.request.body)
+        id = data['id']
+        lb_list = data['lb_list']
+
+        runsalt = saltstackwork()
+        cmd = 'systemctl restart keepalived.service'
+        cmd_result = runsalt.run_cmd(lb_list, cmd)
+
+        self.render2('lvsmanager_keepalived_reload_result.tpl', cmd_result = cmd_result)
+
+        
 
 
 
