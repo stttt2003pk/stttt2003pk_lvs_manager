@@ -526,13 +526,24 @@ class LvsManagerKeepalivedReload(BaseHandler):
 
         data = json.loads(self.request.body)
         id = data['id']
+        method = data['method']
         lb_list = data['lb_list']
 
-        runsalt = saltstackwork()
-        cmd = 'systemctl restart keepalived.service'
-        cmd_result = runsalt.run_cmd(lb_list, cmd)
+        if method == "reload":
+            cmd = 'systemctl restart keepalived.service'
+        elif method == "start":
+            cmd = 'systemctl start keepalived.service'
+        elif method == "stop":
+            cmd = 'systemctl stop keepalived.service'
+        else:
+            cmd = ''
 
-        self.render2('lvsmanager_keepalived_reload_result.tpl', cmd_result = cmd_result)
+        if len(lb_list) != 0 and cmd != '':
+            runsalt = saltstackwork()
+            cmd_result = runsalt.run_cmd(lb_list, cmd)
+            self.render2('lvsmanager_keepalived_reload_result.tpl', cmd_result = cmd_result)
+        else:
+            self.write("No Lb Server Choosen")
 
         
 

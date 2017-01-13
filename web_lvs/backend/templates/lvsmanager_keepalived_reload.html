@@ -55,10 +55,12 @@
         <div class="col-md-6">
     <ol id="lvsmanager_keepalived_reload_select">
         {% for lb in cluster.lb %}
-        <li class="ui-widget-content">{{ lb.id }}/{{ lb.ipadd }}</li>
+        <li class="ui-widget-content" value="{{ lb.id }}">{{ lb.id }}/{{ lb.ipadd }}</li>
         {% endfor %}
     </ol>
     <button id="lvsmanager_keepalived_reload_run" class="btn inline btn-primary" style="position:relative ; top:5px ">Reload</button>
+    <button id="lvsmanager_keepalived_start" class="btn inline btn-warning" style="position:relative ; top:5px ">Start</button>
+    <button id="lvsmanager_keepalived_stop" class="btn inline btn-danger" style="position:relative ; top:5px ">Stop</button>
         </div>
     </div>
   </div>
@@ -76,10 +78,145 @@
     </div>
 
 <script type="text/javascript">
-    //$("#lvsmanager_keepalived_reload_select").selectpicker({style: 'btn-info', menuStyle: 'dropdown-inverse'});
     $(function(){
         $("#lvsmanager_keepalived_reload_select").selectable();
     });
+
+    $("#lvsmanager_keepalived_reload_run").click(function(){
+        var method = "reload"
+        var id = "{{ cluster.id }}";
+        var lb_list = []; 
+        $(".ui-selected").each(function(){
+            lb_server = $(this).attr('value');
+            //console.log(lb_server);
+            lb_list.push(lb_server)
+        });
+
+        if (lb_list.length != 0){
+        var _post_data = JSON.stringify({"id": id, "method": method, "lb_list": lb_list});
+        var load = new Loading();
+        $.ajax({
+            type: 'POST',
+            url: '/lvsmanager_keepalived_reload/',
+            cache: false,
+            data:  _post_data,
+            cache: false,
+            beforeSend: function(){
+                load.init();
+                load.start();
+            },
+            success: function(data){
+                setTimeout(function(){
+                    load.stop();
+                    $("#lvsmanager_keepalived_reload_return_text").text(data)
+                },3000);
+            },
+            error: function(XMLHttpRequest){
+                load.stop();
+                bootbox.alert("post_fail " + XMLHttpRequest)
+            },
+        })
+        }
+        else {
+            bootbox.alert("No Lb Server Choosen")
+        }
+    })
+
+
+    $("#lvsmanager_keepalived_start").click(function(){
+        var method = "start"
+        var id = "{{ cluster.id }}";
+        var lb_list = []; 
+        $(".ui-selected").each(function(){
+            lb_server = $(this).attr('value');
+            //console.log(lb_server);
+            lb_list.push(lb_server)
+        });
+
+        if (lb_list.length != 0){
+        var _post_data = JSON.stringify({"id": id, "method": method, "lb_list": lb_list});
+        var load = new Loading();
+        $.ajax({
+            type: 'POST',
+            url: '/lvsmanager_keepalived_reload/',
+            cache: false,
+            data:  _post_data,
+            cache: false,
+            beforeSend: function(){
+                load.init();
+                load.start();
+            },
+            success: function(data){
+                setTimeout(function(){
+                    load.stop();
+                    $("#lvsmanager_keepalived_reload_return_text").text(data)
+                },3000);
+            },
+            error: function(XMLHttpRequest){
+                load.stop();
+                bootbox.alert("post_fail " + XMLHttpRequest)
+            },
+        })
+        }
+        else {
+            bootbox.alert("No Lb Server Choosen")
+        }
+    })
+
+    $("#lvsmanager_keepalived_stop").click(function(){
+        var method = "stop"
+        var id = "{{ cluster.id }}";
+        var lb_list = []; 
+        $(".ui-selected").each(function(){
+            lb_server = $(this).attr('value');
+            //console.log(lb_server);
+            lb_list.push(lb_server)
+        });
+
+        if (lb_list.length != 0){
+        var _post_data = JSON.stringify({"id": id, "method": method, "lb_list": lb_list});
+        var load = new Loading();
+        $.ajax({
+            type: 'POST',
+            url: '/lvsmanager_keepalived_reload/',
+            cache: false,
+            data:  _post_data,
+            cache: false,
+            beforeSend: function(){
+                load.init();
+                load.start();
+            },
+            success: function(data){
+                setTimeout(function(){
+                    load.stop();
+                    $("#lvsmanager_keepalived_reload_return_text").text(data)
+                },3000);
+            },
+            error: function(XMLHttpRequest){
+                load.stop();
+                bootbox.alert("post_fail " + XMLHttpRequest)
+            },
+        })
+        }
+        else {
+            bootbox.alert("No Lb Server Choosen")
+        }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 {% endblock %}

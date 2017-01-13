@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 {% block body %}
-<div>
-  <div>
-    <div>
+<div class="container-fluid">
+  <div class='row'>
+    <div class="col-md-12">
         <ul class="nav nav-tabs">
           <li><a href="/lvsmanager/">Lvs Cluster Manager</a> <span></span></li>
           <li class="active"><a href="#">Vip Instance Configuration</a> <span></span></li>
@@ -10,14 +10,18 @@
         </ul>
     </div>
   </div>
-        <div>
+
+    <div class='row'>
+        <div class="col-md-12">
             <h4>cluster_id:{{ cluster }}</h4>
             <hr>
             <a href="/lvsmanager_deploy_add/?id={{ cluster }}" class="btn btn-success"><span></span>Add New Vip Instance</a>
         </div>
-        </br>
+    </div>
+    <hr>
 
-        <div>
+        <div class='row'>
+            <div class="col-md-12">
         <!--{{ vipinstanceinfo }}-->
         {% if vipinstanceinfo %}
             <table id="lvsmanager_table" class="table table-bordered table-hover">
@@ -58,8 +62,16 @@
         {% else %}
             <p>the vip instance not exist</p>
         {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+            <a href="/lvsmanager/" class='btn btn-sm btn-default' style="position: relative;left: 1px;"><span></span>Back</a>
+            </div>
         </div>
 </div>        
+
 <script type="text/javascript">
 function offline_vip_instance(vip_instance_id,vip_instance){
     bootbox.confirm("r u sure to offline the instance " + vip_instance, function(result){

@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 {% block body %}
-<div>
-  <div>
-    <div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
         <ul class="nav nav-tabs">
           <li><a href="/lvsmanager/">Lvs Cluster Manager</a> <span></span></li>
           <li><a href="/lvsmanager_deploy/?id={{ vipinstance.cluster_id }}">Vip Instance Configuration</a> <span></span></li>
@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="row">
     <div id='lvsmanager_deploy_add_body' class='col-md-12'>
         <h4>Edit Vip Instance(Instance Name:{{ vipinstance.vip_instance}} Cmdb_Id:{{ vipinstance._id }})</h4>
         <hr>
@@ -157,7 +157,7 @@
         </table>
         <hr>
         <button style="position: relative;left: 20px;" id="lvs_deploy_add_submit" class="btn btn-danger"><span></span>Save</button>
-        <a href="/lvsmanager_deploy/?id={{ vipinstance.cluster_id }}" style="position: relative;left: 20px;" class="btn btn-primary"><span></span>Back</a>
+        <a href="/lvsmanager_deploy/?id={{ vipinstance.cluster_id }}" style="position: relative;left: 20px;" class="btn btn-default"><span></span>Back</a>
     </div>
 
 

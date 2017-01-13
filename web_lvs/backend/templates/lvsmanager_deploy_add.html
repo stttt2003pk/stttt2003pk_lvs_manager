@@ -1,7 +1,8 @@
 {% extends "index.html" %}
 {% block body %}
-  <div>
-    <div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
         <ul class="nav nav-tabs">
           <li><a href="/lvsmanager/">Lvs Cluster Manager</a> <span></span></li>
           <li class="active"><a href="/lvsmanager_deploy/?id={{ cluster }}">Vip Instance Configuration</a> <span></span></li>
@@ -9,7 +10,8 @@
         </ul>
     </div>
   </div>
-  <div>
+
+  <div class='row'>
     <div id='lvsmanager_deploy_add_body' class='col-md-12'>
         <h4>Vip Instance Configuration(Add New Vip Instance)</h4>
         <hr>
@@ -142,7 +144,7 @@
         </table>
         <hr>
         <button style="position: relative;left: 20px;" id="lvs_deploy_add_submit" class="btn btn-danger"><span></span>Submit</button>
-        <a href="/lvsmanager_deploy/?id={{ cluster }}" style="position: relative;left: 20px;" class="btn btn-primary"><span></span>Back</a>
+        <a href="/lvsmanager_deploy/?id={{ cluster }}" style="position: relative;left: 20px;" class="btn btn-default"><span></span>Back</a>
     </div>
   </div>
 
@@ -222,7 +224,7 @@
 </div>
 
 </div>
-
+</div>
 <script type="text/javascript">
     console.log("{{ cluster }}")
     var rs_list = []
@@ -370,7 +372,7 @@
             },
             error: function(XMLHttpRequest){
                 load.stop();
-                alert("post_fail" + XMLHttpRequest)
+                bootbox.alert("post_fail " + XMLHttpRequest)
             },
         });
          
