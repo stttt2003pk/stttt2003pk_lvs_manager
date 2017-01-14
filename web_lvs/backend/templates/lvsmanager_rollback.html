@@ -1,0 +1,83 @@
+{% extends "index.html" %}
+{% block body %}
+
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+        <ul class="nav nav-tabs">
+          <li><a href="/lvsmanager/">Lvs Cluster Manager</a><span></span></li>
+          <li class="active"><a href="#">RollBack</a><span></span></li>
+        </ul>
+        </div>
+    </div>
+  </div>
+  </br>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class='col-md-12'>
+    <h4>Cluster_Id: {{ cluster_id }}</h4>
+    <hr>
+    {% if publishlist %}
+        <table  id="lvsmanagerrollbacktable" class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th style="width: 15%">Publish Time</th>
+              <th style="width: 10%">Publish Version</th>
+              <th style="width: 55%">Publish Message</th>
+              <th style="width: 10%">Publist Result</th>
+              <th style="width: 10%">Operations</th>
+            </tr>
+          </thead>
+          <tbody >
+              {% for publish in publishlist %}
+                <tr>
+                  <td>{{ publish.time | timestamptodate}}</td>
+                  <td>{{ publish.rev }}</td>
+                  <td>{{ publish.message }}</td>
+                  <td>{% if publish.publish_result %}<button class="btn btn-success">True</button>{% else %}<button class="btn btn-danger">False</button>{% endif %}</td>
+                  <td><a href="#" onClick="lvsrollback('{{ publish._id }}')" class='btn btn-warning'><span class="fui-new"></span>RollBack</a></td>
+                </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+    {% else %}
+    <p>No Publish Record In CMDB</p>
+    {% endif %}
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+function lvsrollback(id){
+    bootbox.prompt("Please Insert The Publish Message", function(result){
+        if(result){
+            var post_data = {
+                            "id": id,
+                            "mess": result,
+                        }
+            var _post_data = JSON.stringify(post_data)
+            $.ajax({
+                type: 'POST',
+                url: '/lvsmanager_rollback/',
+                cache: false,
+                data: _post_data,
+                success: function(data){
+                    
+                        ret_str = '<pre>RollBackResult:\n' +data + '</pre>';
+                        bootbox.alert(ret_str, function(){
+                            window.location.href="/lvsmanager_keepalived_reload/?id={{ cluster_id }}";
+                    });
+
+                },
+                error: function(XMLHttpRequest){
+                    bootbox.alert('RollBack Function Failid')
+                },
+                
+            })
+        }
+        
+    })
+}
+</script>
+{% endblock %}

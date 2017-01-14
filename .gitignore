@@ -7,6 +7,7 @@ __pycache__/
 *.xml
 *.name
 .name
+config_lvs_cluster_info.yaml
 
 # C extensions
 *.so

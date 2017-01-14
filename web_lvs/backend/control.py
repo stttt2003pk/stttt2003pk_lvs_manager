@@ -20,6 +20,8 @@ from bytesformat import bytes2human
 from jinja2 import Environment, FileSystemLoader, TemplateNotFound
 
 import json
+from bson.objectid import ObjectId
+
 import urllib
 
 import time
@@ -497,7 +499,7 @@ class LvsManagerPublish(BaseHandler):
             handler.updateLvsManagerPublishResult(new_publish_id, ret_result)
             print result
             print result2
-            self.write(ret_html)
+            self.write(ret_html + '\ncluster_id:' + str(cluster_id) + '\ntime:' + str(time_now) + '\nresualt_version:' + str(rev))
             #print ret_html
 
 #keepalived reload handler
@@ -546,9 +548,99 @@ class LvsManagerKeepalivedReload(BaseHandler):
             self.write("No Lb Server Choosen")
 
         
+#rollback get and post
+class LvsManagerRollback(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        cluster_id = self.get_argument("id",None)
+        handler = DB_Model('LvsManagerPublish')
+        publishlist = handler.getLvsManagerPublishList(cluster_id)
+        self.render2('lvsmanager_rollback.html', publishlist = publishlist, cluster_id = cluster_id)
+        
+    def post(self):
+        data = json.loads(self.request.body)
+        id = data['id']
+        message = data['mess']
+        time_now = time.time()
+        
+        handler = DB_Model('LvsManagerPublish')
+        #match the publish id to rollback
+        rollback_record = handler.getLvsManagerPublishOne(id)
+        cluster_id = rollback_record['cluster_id']
+        vipinstancelist = rollback_record['server']
+        area = search_cluster(cluster_id)['area']
+        admin_mail_group = search_cluster(cluster_id)['admin_mail_group']
 
+        #remove the configuration of this cluster
+        handler.removeLvsManagerConifghForCluster(cluster_id)
+        #insert the roll_back one and dump to the template,ready to publish transfer
+        for vipinstance in vipinstancelist:
+            vipinstance["_id"] = ObjectId(vipinstance["_id"])
+            handler.insertLvsManagerConfigVipInstance(vipinstance)
 
+        #get the publish result version
+        last_rev = handler.getLvsManagerPublishLastRev(cluster_id)
+        if last_rev:
+            rev = last_rev['rev'] + 1
+        else:
+            rev = 1
 
+        #insert the new publish result
+        for i in vipinstancelist:
+            i["_id"] = str(i["_id"])
+
+        lvsmanagerpublish = {
+                                "time":time_now,
+                                "message":message,
+                                "cluster_id":cluster_id,
+                                "rev":rev,
+                                "server":vipinstancelist,
+                                "area":area,
+                                "admin_mail_group":admin_mail_group,
+                            }
+        #the info.yaml
+        context = yaml.dump(lvsmanagerpublish)
+    
+        new_publish_id = handler.insertLvsManagerPublish(lvsmanagerpublish)
+        #rend the keepalived template
+        keepalived_config = self.template('keepalived.tpl', vip_instance_list = vipinstancelist, cluster_id = cluster_id)
+        publishdir = options.publishdir
+        keepalived_config_file = os.path.join(publishdir,new_publish_id)
+        f = codecs.open(keepalived_config_file, 'w+', 'utf-8')
+        f.write(keepalived_config)
+        f.close()
+
+        #salt transfer
+        config = yaml.load(open(options.config))
+        tgt = search_cluster(cluster_id)['agent']
+        source_file = keepalived_config_file
+        dst_file = '/etc/keepalived/keepalived.conf'
+
+        runsalt = saltstackwork()
+        result = runsalt.run_publish_keepalived(tgt, source_file, dst_file)
+
+        #transfer the info.yaml
+        info_source_file = 'info.yaml'
+        info_dst_file = '/etc/keepalived/info.yaml'
+        result2 = runsalt.run_cp_file(tgt, info_source_file, info_dst_file, context)
+        
+        #check the salt result
+        ret_html = ''
+        ret_result = True
+        for lb in tgt:
+            if result.has_key(lb) and result2.has_key(lb):
+                ret_html += '%s ok\n' %(lb)
+            else:
+                ret_html += '%s failed\n' %(lb)
+                ret_result = False
+
+        handler.updateLvsManagerPublishResult(new_publish_id, ret_result)
+        print result
+        print result2
+        self.write(ret_html + '\ncluster_id:' + str(cluster_id) + '\ntime:' + str(time_now) + '\nresualt_version:' + str(rev))
+        #print ret_html    
+                
+        
 
 
 

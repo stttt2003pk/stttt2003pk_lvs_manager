@@ -32,8 +32,9 @@
     <td>
         <a href="/lvsmanager_deploy/?id={{ cluster.id }}" class="btn btn-success"><span></span>Configuration</a>
         <!--<a href="/lvsmanager_deploy_add/?id={{ cluster.id }}" class="btn btn-primary" ><span></span>New Vip Instance</a>-->
-        <a href="#" onCLick="lvsmanagerpublish('{{ cluster.id }}')" class='btn btn-warning' style="position: relative;left: 1px;"><span></span>Publish</a>
+        <a href="#" onCLick="lvsmanagerpublish('{{ cluster.id }}')" class='btn btn-danger' style="position: relative;left: 1px;"><span></span>Publish</a>
         <a href="/lvsmanager_keepalived_reload/?id={{ cluster.id }}" class="btn btn-primary" style="position: relative;left: 1px;"><span></span>LvsOperation</a>
+        <a href="/lvsmanager_rollback/?id={{ cluster.id }}" class="btn btn-warning" style="position: relative;left: 1px;"><span></span>Rollback</a>
     </td>
 </tr>
 {% endfor %}

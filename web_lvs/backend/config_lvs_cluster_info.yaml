@@ -24,7 +24,7 @@ cluster:
   - id: stttt2003pk_lvs_cluster_zone1
     area: SZ
     descript: SZ_Cluster
-    agent: ['csserver1.stttt2003pk.com', 'csserver3.stttt2003pk.com']
+    agent: ['csserver3.stttt2003pk.com']
     manager_user: ['test']
     admin_mail_group: ['414150392@qq.com','huangchang@gzsunrun.cn']
 

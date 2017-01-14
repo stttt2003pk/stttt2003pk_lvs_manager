@@ -71,6 +71,18 @@ class DB_Model():
         self.db['LvsManagerPublish'].update({"_id": ObjectId(id)},{"$set": { "publish_result" : publishresult }})
         return True
 
+    def getLvsManagerPublishList(self, id):
+        result = self.db['LvsManagerPublish'].find({"cluster_id": id}).sort("time", -1)
+        return list(result)
+
+    def getLvsManagerPublishOne(self, id):
+        result = self.db['LvsManagerPublish'].find_one({"_id": ObjectId(id)})
+        return result
+
+    def removeLvsManagerConifghForCluster(self, id):
+        self.db['LvsManagerConfig'].remove({"cluster_id": id})
+        return True
+
 ####test DB_Model
 #handler = DB_Model('test account')
 #print handler.getAccountOne('admin')

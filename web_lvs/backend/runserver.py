@@ -40,6 +40,8 @@ class Application(tornado.web.Application):
             (r"/lvsmanager_publish/", control.LvsManagerPublish),
 
             (r"/lvsmanager_keepalived_reload/", control.LvsManagerKeepalivedReload),
+
+            (r"/lvsmanager_rollback/", control.LvsManagerRollback),
 		]
 
 		handlers = web_path
