@@ -26,11 +26,11 @@ cluster:
     descript: SZ_Cluster
     agent: ['csserver3.stttt2003pk.com']
     manager_user: ['test']
-    admin_mail_group: ['414150392@qq.com','huangchang@gzsunrun.cn']
+    admin_mail_group: ['huangchang@gzsunrun.cn',]
 
   - id: stttt2003pk_lvs_cluster_zone2
     area: SH 
     descript: SH_cluster
     agent: ['csserver2.stttt2003pk.com']
     manager_user: ['test']
-    admin_mail_group: ['414150392@qq.com','huangchang@gzsunrun.cn']
+    admin_mail_group: ['huangchang@gzsunrun.cn',]

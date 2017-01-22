@@ -434,7 +434,7 @@ class LvsManagerPublish(BaseHandler):
         _vipinstancelist = handler.getLvsManagerConfigVipInstanceList(cluster_id)
 
         for i in _vipinstancelist:
-            i['_id'] = str(i['_id'])
+            i["_id"] = str(i["_id"])
 
         if len(vipinstancelist) == 0:
             self.write('This ' + cluster_id + ' has no vip instance configuration in the CMDB')
@@ -457,10 +457,11 @@ class LvsManagerPublish(BaseHandler):
                                     "area": area,
                                     "admin_mail_group": admin_mail_group,
                                 }
-            new_publish_id = handler.insertLvsManagerPublish(lvsmanagerpublish)
 
             #dump the publish information to YAML
             context = yaml.dump(lvsmanagerpublish)
+            #print context
+            new_publish_id = handler.insertLvsManagerPublish(lvsmanagerpublish)
 
             #jinja render to create keepalived config
             keepalived_config = self.template('keepalived.tpl', vip_instance_list = vipinstancelist, cluster_id=cluster_id)            
@@ -499,7 +500,7 @@ class LvsManagerPublish(BaseHandler):
             handler.updateLvsManagerPublishResult(new_publish_id, ret_result)
             print result
             print result2
-            self.write(ret_html + '\ncluster_id:' + str(cluster_id) + '\ntime:' + str(time_now) + '\nresualt_version:' + str(rev))
+            self.write(ret_html + '\ncluster_id:' + str(cluster_id) + '\ntime:' + str(time_now) + '\nresult_version:' + str(rev))
             #print ret_html
 
 #keepalived reload handler
@@ -637,7 +638,7 @@ class LvsManagerRollback(BaseHandler):
         handler.updateLvsManagerPublishResult(new_publish_id, ret_result)
         print result
         print result2
-        self.write(ret_html + '\ncluster_id:' + str(cluster_id) + '\ntime:' + str(time_now) + '\nresualt_version:' + str(rev))
+        self.write(ret_html + '\ncluster_id:' + str(cluster_id) + '\ntime:' + str(time_now) + '\nresult_version:' + str(rev))
         #print ret_html    
                 
         
