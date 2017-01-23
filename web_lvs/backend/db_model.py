@@ -83,6 +83,10 @@ class DB_Model():
         self.db['LvsManagerConfig'].remove({"cluster_id": id})
         return True
 
+    def insertlvsalert(self, message):
+        result = self.db['LvsAlert'].insert(message)
+        return result
+
 ####test DB_Model
 #handler = DB_Model('test account')
 #print handler.getAccountOne('admin')
