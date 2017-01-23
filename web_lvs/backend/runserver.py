@@ -45,6 +45,8 @@ class Application(tornado.web.Application):
             (r"/lvsmanager_keepalived_reload/", control.LvsManagerKeepalivedReload),
 
             (r"/lvsmanager_rollback/", control.LvsManagerRollback),
+
+            (r"/lvsalert/", control.LvsAlert),
         ]
 
         api_path = [

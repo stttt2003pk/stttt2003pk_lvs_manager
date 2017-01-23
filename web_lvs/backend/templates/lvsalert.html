@@ -1,0 +1,71 @@
+{% extends "index.html" %}
+{% block body %}
+
+<div class="container-fluid">
+  <div class='row'>
+    <div class="col-md-12">
+        <ul class="nav nav-tabs">
+          <li><a href="/lvsmanager/">Lvs Cluster Manager</a> <span></span></li>
+          <li class="active"><a href="#">Alert Table</a> <span></span></li>
+        </ul>
+    </div>
+  </div>
+  
+  <div class='row'>
+    <div class="col-md-12">
+        </br>
+        <h4>Alert_Table</h4>
+        <hr>
+      <table class="table table-bordered table-hover" id="alert_table">
+        <thead>
+             <tr>
+               <th style="width: 15%">Time</th>
+               <th style="width: 20%">VIP_GROUP</th>
+               <th style="width: 20%">Description</th>
+               <th style="width: 15%">Owners</th>
+               <th style="width: 15%">Real Server</th>
+               <th style="width: 15%">Alert_Type</th>
+             </tr>
+           </thead>
+           <tbody>
+             {% for alert in alert_dict %}
+             <tr>
+                <td>{{ alert.time | timestamptodate }}</td>
+                <td>{% for vip in alert.vip_group %}
+                {{ vip }}{% endfor %}</td>
+                <td><a href="/lvsalert/?vip_instance={{ alert.vip_instance }}&date={{ date }}">{{ alert.descript }}</a></td>
+                <td>{{ alert.owners }}</td>
+                <td><a href="/lvsalert/?rs={{ alert.rs | format_rs_str }}&date={{ date }}">{{ alert.rs }}</a></td>
+                <td>{% if alert.alert_type == 'rs_is_down' %}
+                        <a href="#" class="btn btn-block btn-warning " title="{{ alert.message }}">{{ alert.alert_type }}</a>
+                    {% elif alert.alert_type == 'service_is_down' %}
+                        <a href="#" class="btn btn-block btn-danger " title="{{ alert.message }}">{{ alert.alert_type }}</a>
+                    {% elif alert.alert_type == 'rs_is_up' %}
+                        <a href="#" class="btn btn-block btn-info " title="{{ alert.message }}">{{ alert.alert_type }}</a>
+                    {% elif alert.alert_type == 'service_is_up' %}
+                        <a href="#" class="btn btn-block btn-primary " title="{{ alert.message }}">{{ alert.alert_type }}</a>
+                    {% endif %}</td>
+             </tr>
+             {% endfor %}
+           </tbody>
+      </table>
+    </div>
+  </div>  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+</div>
+
+<script type="text/javascript">
+</script>
+{% endblock %}

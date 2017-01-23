@@ -32,6 +32,10 @@ from tornado.log import access_log, app_log, gen_log
 
 import yaml
 import codecs
+####date to time stamp
+def datetotimestamp(date):
+    time_obj = time.strptime(date, "%Y-%m-%d %H:%M:%S")
+    return time.mktime(time_obj)
 
 ####real server alived html
 def rs_is_lived(weight):
@@ -642,8 +646,32 @@ class LvsManagerRollback(BaseHandler):
         #print ret_html    
                 
         
+#lvs alert handler
+class LvsAlert(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        dt = datetime.date.today()
+        today = datetime.datetime.strftime(dt, '%Y-%m-%d')
+        find = {}
 
+        _find = {}
 
+        #for i in find:
+        #    if find[i] != None:
+        #        _find[i] = {"$regex": find[i]}
+        for k,v in find.items():
+            if v != None:
+                _find[k] = {"$regex": v}
+
+        date_time = self.get_argument("date", today)
+
+        handler = DB_Model('LvsAlert') 
+        start = datetotimestamp('%s 00:00:00' % date_time)
+        end = datetotimestamp('%s 23:59:59' % date_time)
+        alert_dict = handler.getLvsAlert(_find, start, end)
+        #print alert_dict
+
+        self.render2('lvsalert.html', alert_dict = alert_dict, date = date_time)
 
 
 

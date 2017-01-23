@@ -87,6 +87,14 @@ class DB_Model():
         result = self.db['LvsAlert'].insert(message)
         return result
 
+    def getLvsAlert(self, find_dict, start, end):
+        find_dict["time"] = {
+                                "$lt": end,
+                                "$gt": start,
+                            }
+        db_result = self.db['LvsAlert'].find(find_dict).sort("time", -1)
+        return db_result
+
 ####test DB_Model
 #handler = DB_Model('test account')
 #print handler.getAccountOne('admin')
