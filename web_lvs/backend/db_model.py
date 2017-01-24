@@ -95,6 +95,10 @@ class DB_Model():
         db_result = self.db['LvsAlert'].find(find_dict).sort("time", -1)
         return db_result
 
+    def getLvsAlertTypeCount(self, alert_type, start, end):
+        db_result = self.db['LvsAlert'].find({"alert_type": alert_type, "time": {"$lt": end, "$gt": start}}).count()
+        return db_result
+
 ####test DB_Model
 #handler = DB_Model('test account')
 #print handler.getAccountOne('admin')

@@ -10,7 +10,78 @@
         </ul>
     </div>
   </div>
+
+</br>
+
+  <div class='row'>
+
+    <!-- service is down -->
+    <div class='col-md-3'>
+        <div class="bg-danger">
+          <dl style="text-align: center;">
+            <dt style="position: relative; right: 7px;">service_is_down</dt>
+          </dl>
+          <dl style="text-align: center;">
+            <dd><a href="/lvsalert/?alert_type=service_is_down&date={{ date }}">{{ service_is_down_count }}</a></dd>
+          </dl>
+        </div>
+    </div>
+
+    <!-- service is up -->
+    <div class='col-md-3'>
+        <div class="bg-success">
+          <dl style="text-align: center;">
+            <dt >service_is_up</dt>
+          </dl>
+          <dl style="text-align: center;">
+            <dd><a href="/lvsalert/?alert_type=service_is_up&date={{ date }}">{{ service_is_up_count }}</a></dd>
+          </dl>
+        </div>
+    </div>
+
+    <!-- rs is down -->
+    <div class='col-md-3'>
+        <div class="bg-warning">
+          <dl style="text-align: center;">
+            <dt>rs_is_down</dt>
+          </dl>
+          <dl style="text-align: center;">
+            <dd><a href="/lvsalert/?alert_type=rs_is_down&date={{ date }}">{{ rs_is_down_count }}</a></dd>
+          </dl>
+        </div>
+    </div>
+
+    <!-- rs is up -->
+    <div class='col-md-3'>
+        <div class="bg-info">
+          <dl style="text-align: center;">
+            <dt>rs_is_up</dt>
+          </dl>
+          <dl style="text-align: center;">
+            <dd><a href="/lvsalert/?alert_type=rs_is_up&date={{ date }}">{{ rs_is_up_count }}</a></dd>
+          </dl>
+        </div>
+    </div>
+
   
+  </div>
+
+  <div class='row'>
+    <div class="col-md-12">
+      <div method="get" action="">
+        <p>
+         <select name="search_field" id="id_search_field">
+             <option value="rs">Real Server Ip</option>
+             <option value="vip_group">Vip_Group/Vip</option>
+         </select>
+         <input id="id_search_str" type="text" class="input-xlarge search-query" name="search_str" maxlength="50" style="position: relative;top: -4px;" />
+         <input id='alert_datepicker' style="position: relative;top: -5px;left: 5px;"></input>
+        </p>
+            <button id="search_submit" class="btn btn-primary">Search</button>
+      </div>
+    </div>
+  </div>
+
   <div class='row'>
     <div class="col-md-12">
         </br>
@@ -67,5 +138,87 @@
 </div>
 
 <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("#alert_datepicker").datepicker({
+            //minDate: -20, 
+            maxDate: 0,
+            dateFormat: "yy-mm-dd"
+        });
+
+        $("#alert_datepicker").datepicker("setDate","{{ date }}");
+        
+        $("#search_submit").click(function(){
+            var key = $("#id_search_field").val()
+            var value = $("#id_search_str").val()
+            var date = $("#alert_datepicker").val()
+
+            if (value) {
+                window.location.href = "?" + key + "=" + value + "&date=" + date
+            }
+            else {
+                window.location.href = "?" + "date=" + date
+            }
+        })
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 {% endblock %}

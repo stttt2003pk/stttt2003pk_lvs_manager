@@ -652,7 +652,12 @@ class LvsAlert(BaseHandler):
     def get(self):
         dt = datetime.date.today()
         today = datetime.datetime.strftime(dt, '%Y-%m-%d')
+
         find = {}
+        find['rs'] = self.get_argument("rs", None)
+        find['vip_group'] = self.get_argument("vip_group", None)
+        find['vip_instance'] = self.get_argument("vip_instance", None)
+        find['alert_type'] = self.get_argument("alert_type", None)
 
         _find = {}
 
@@ -671,7 +676,21 @@ class LvsAlert(BaseHandler):
         alert_dict = handler.getLvsAlert(_find, start, end)
         #print alert_dict
 
-        self.render2('lvsalert.html', alert_dict = alert_dict, date = date_time)
+        rs_is_down_count = handler.getLvsAlertTypeCount('rs_is_down', start, end)
+        rs_is_up_count = handler.getLvsAlertTypeCount('rs_is_up', start, end)
+        service_is_down_count = handler.getLvsAlertTypeCount('service_is_down', start , end)
+        service_is_up_count = handler.getLvsAlertTypeCount('service_is_up', start, end)
+
+        self.render2(
+                        'lvsalert.html',
+                        alert_dict = alert_dict,
+                        date = date_time,
+                        rs_is_down_count = rs_is_down_count,
+                        rs_is_up_count = rs_is_up_count,
+                        service_is_down_count = service_is_down_count,
+                        service_is_up_count = service_is_down_count,
+
+                    )
 
 
 
