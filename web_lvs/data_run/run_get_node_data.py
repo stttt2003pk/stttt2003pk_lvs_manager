@@ -5,6 +5,7 @@ import os,sys,logging
 
 from pymongo import MongoClient
 
+import json
 import yaml
 
 import time
@@ -57,14 +58,14 @@ class MongoSession():
             "data": data
         }
         try:
-            _id = collection.insert(insert_data):
+            _id = collection.insert(insert_data)
             self.conn.end_request()
             logging.info('Insert data (ID:%s) Success !' % id) 
             return id
         except Exception, e:
             return e
 
-    def insert_demo(self, data_type,insert_data)
+    def insert_demo(self, data_type,insert_data):
         _time = time.time()
         collection =self.db[data_type]
         try:
@@ -122,14 +123,14 @@ class get_Lvs_Node_Data(object):
                 res = urllib2.urlopen(url, timeout=2)
                 return json.loads(res.read())
             except Exception, e:
-                fails += 1
+                fail += 1
             else:
                 logging.info('Get Monitor Data Success | %s ' % url)
                 break
 
     def getlvstrffic(self, agent_ip, port):
         url = 'http://%s:%s/node/GetLvsTraffic/' % (agent_ip,port)
-        fails = 0
+        fail = 0
         retry = 5
         while True:
             try:
@@ -139,7 +140,7 @@ class get_Lvs_Node_Data(object):
                 res = urllib2.urlopen(url, timeout=2)
                 return json.loads(res.read())
             except Exception, e:
-                fails += 1 
+                fail += 1
             else:
                 logging.info('Get Monitor Data Success | %s ' % url)
                 break
