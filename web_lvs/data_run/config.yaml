@@ -1,0 +1,36 @@
+####
+---
+
+agent:
+  - id: csserver3.stttt2003pk.com
+    ipadd: 192.168.100.239
+    cluster: stttt2003pk_lvs_cluster_zone1
+    area: SZ
+    port: 61777
+
+  - id: csserver1.stttt2003pk.com
+    ipadd: 192.168.204.118
+    cluster: stttt2003pk_lvs_cluster_zone1
+    area: SZ
+    port: 61777
+
+  - id: csserver2.stttt2003pk.com
+    ipadd: 192.168.204.119
+    cluster: stttt2003pk_lvs_cluster_zone2
+    area: SH
+    port: 61777
+
+cluster:
+  - id: stttt2003pk_lvs_cluster_zone1
+    area: SZ
+    descript: SZ_Cluster
+    agent: ['csserver3.stttt2003pk.com']
+    manager_user: ['test']
+    admin_mail_group: ['huangchang@gzsunrun.cn',]
+
+  - id: stttt2003pk_lvs_cluster_zone2
+    area: SH 
+    descript: SH_cluster
+    agent: ['csserver2.stttt2003pk.com']
+    manager_user: ['test']
+    admin_mail_group: ['huangchang@gzsunrun.cn',]

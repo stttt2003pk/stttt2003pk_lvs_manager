@@ -13,6 +13,10 @@ import datetime
 
 import urllib2
 
+from datadiff import diff
+
+from multiprocessing import Process, Queue, current_process
+
 cur_dir = os.path.dirname(os.path.abspath(__file__))
 
 settings = {
@@ -79,7 +83,7 @@ class MongoSession():
     def upsert(self,data_type,find,update):
         collection = self.db[data_type]
         try:
-            _id = collection.update(find,update,True)
+            _id = collection.update(find, update, True)
             self.conn.end_request()
             logging.info('Method: Upsert | table: %s | result: Success ' % (data_type))
             return id
@@ -102,6 +106,7 @@ class MongoSession():
             _id = collection.find_one(find)
             self.conn.end_request()
             logging.info('Method: FindOne | table: %s | result: Success ' % (data_type))
+            return _id
         except Exception, e:
             logging.warning('Method: FindOne | table: %s | result: %s' % (data_type,e))
 
@@ -145,7 +150,7 @@ class get_Lvs_Node_Data(object):
                 logging.info('Get Monitor Data Success | %s ' % url)
                 break
 
-    def lvstraffic_handler(self, id,agent_ip,agent_port,cluster,_time):
+    def lvstraffic_handler(self, id, agent_ip, agent_port, cluster, _time):
         mongo_task = MongoSession()
         sum_dict = {}
         inpkts_sum = 0
@@ -208,7 +213,110 @@ class get_Lvs_Node_Data(object):
         mongo_task.close()
         return None
 
+    def getlvsstatus(self, agent_ip, port):
+        url = 'http://%s:%s/node/GetLvsStatus/' % (agent_ip, port)
+        fails = 0
+        retry = 5
+        while True:
+            try:
+                if fails > retry:
+                    logging.warning('Get Monitor Data Failed | %s' % url)
+                    return None
+                res = urllib2.urlopen(url, timeout=2)
+                return json.loads(res.read())
 
+            except Exception, e:
+                fails += 1
+            else:
+                logging.info('Get Monitor Data Success | %s ' % url)
+
+    def lvsstatus_handler(self, id, agent_ip, agent_port, cluster, _time):
+        mongo_task = MongoSession()
+        data = self.getlvsstatus(agent_ip, agent_port)
+        last_data = MongoSession.find_one('GetLvsConn_status',{"id":id})
+        now_status = data
+        if last_data:
+            last_status = last_data['node']
+            _diff = diff(now_status, last_status)
+            if _diff:
+                dict_diff = {
+                    "id": id,
+                    "time": _time,
+                    "diff": str(_diff),
+                    "cluster": cluster,
+                }
+                mongo_task.insert_demo('GetLvsConn_diff', dict_diff)
+
+        find = {"id":id}
+        dict = {
+            "id": id,
+            "time": _time,
+            "cluster": cluster,
+            "node": data
+        }
+        mongo_task.upsert('GetLvsConn_status',find,dict)
+        mongo_task.close()
+
+    def worker(self, input, output):
+        for func in iter(input.get, 'STOP'):
+            agent_dict = func['agent']
+            pid = os.getpid()
+            logging.info('tasks.get | pid: %s  tasks: %s is connection' % (pid, agent_dict['id']))
+            _time = func['time']
+            id = agent_dict['id']
+            agent = agent_dict['ipadd']
+            port = agent_dict['port']
+            cluster = agent_dict['cluster']
+
+            _timenow = time.time()
+            self.lvstraffic_handler(id, agent, port, cluster, _time)
+            self.lvstraffic_handler(id, agent, port, cluster, _time)
+
+            _timenow1 = time.time() - _timenow
+            logging.warning(_timenow1)
+
+    def run_worker(self):
+        logging.info('##################Task Begining##################')
+        try:
+            config = yaml.load(open(settings['config']))
+            logging.info('load config.yaml Success')
+        except Exception, e:
+            print 'load config error!!'
+
+        agent_list = config['agent']
+
+        task_queue = Queue()
+        done_queue = Queue()
+
+        NUMBER_OF_PROCESSES = len(agent_list)
+
+        _time = time.time()
+        logging.info('Agentlist: %s' % [a['id'] for a in agent_list])
+
+        for agent in agent_list:
+            dict = {}
+            dict["time"] = _time
+            dict["agent"] = agent
+            task_queue.put(dict)
+            logging.info('tasks.put | tasks: %s ' % (agent['id']))
+
+        #open the process
+        record = []
+        for i in range(NUMBER_OF_PROCESSES):
+            process = Process(target=self.worker, args=(task_queue, done_queue))
+            process.start()
+            record.append(process)
+
+        for i in range(NUMBER_OF_PROCESSES):
+            task_queue.put('STOP')
+            logging.info("Stopping Process #%s" % i)
+
+        for i in record:
+            process.join()
+
+if __name__ == "__main__":
+    temp = get_Lvs_Node_Data()
+    temp.run_worker()
 
 
 
