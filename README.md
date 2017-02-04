@@ -133,10 +133,10 @@ class DB_Model():
 
 ## References
 
-[salt.client.LocalClient]https://docs.saltstack.com/en/latest/ref/clients/index.html#localclient
-[salt.modules]https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.file.html#module-salt.modules.file
-[Tornado]http://www.tornadoweb.org/en/stable/webframework.html
-[PyMongo]https://api.mongodb.com/python/2.7.2/api/index.html
+[salt.client.LocalClient](https://docs.saltstack.com/en/latest/ref/clients/index.html#localclient)
+[salt.modules](https://docs.saltstack.com/en/latest/ref/modules/all/salt.modules.file.html#module-salt.modules.file)
+[Tornado](http://www.tornadoweb.org/en/stable/webframework.html)
+[PyMongo](https://api.mongodb.com/python/2.7.2/api/index.html)
 
 ## Plan&Vision
 * Should improve the monitoring(charts plugin it is hard)
