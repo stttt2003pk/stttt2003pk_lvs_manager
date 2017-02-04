@@ -692,22 +692,9 @@ class LvsAlert(BaseHandler):
 
                     )
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ####saltstackwork
 class saltstackwork():
-	
+
 	def __init__(self):
 		import salt.client
 		self.local = salt.client.LocalClient()
@@ -736,7 +723,7 @@ class saltstackwork():
 				result_list.append({"id":i,"ret":result[i],"result":True})
 			else:
 				result_list.append({"id":i,"result":False})
-		
+
 		return result_list
 
 
